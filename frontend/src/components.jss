@@ -439,7 +439,9 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
                 <div key={h} className="h-16 border-t border-gray-100" />
               ))}
             </div>
-            <NowIndicator date={date} />
+            <div className="absolute inset-0">
+              <NowIndicator date={date} />
+            </div>
             <GridClickCatcher date={date} onCreate={onCreate} />
             <div className="absolute inset-0 pointer-events-none">
               <EventBlocks events={dayEvents.filter(e => !e.allDay)} date={date} onEdit={onEdit} calendars={calendars} />
