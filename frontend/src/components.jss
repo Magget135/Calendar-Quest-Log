@@ -379,8 +379,10 @@ const DayView = ({ date, events, calendars, onCreate, onEdit }) => {
   const filtered = useMemo(() => filterEventsByCalendars(events, calendars), [events, calendars]);
   const dayEvents = filtered.filter(e => sameDay(parseISOish(e.start), date) || (e.allDay && (parseISOish(e.start) <= endOfDay(date) && parseISOish(e.end) >= startOfDay(date))));
 
+  const scrollRef = useRef(null);
+  useAutoScrollToHour(scrollRef);
   return (
-    <div className="flex-1 overflow-auto">
+    <div ref={scrollRef} className="flex-1 overflow-auto">
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
         <div className="bg-white" />
         <div className="bg-white border-b border-gray-200 px-4 py-2">
