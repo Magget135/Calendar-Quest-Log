@@ -96,7 +96,7 @@ const expandRecurringEvents = (events, rangeStart, rangeEnd) =&gt; {
       }
     }
 
-    while (iter &lt; maxIters &amp;&amp; occStart &lt;= rangeEnd) {
+    while (iter < maxIters && occStart <= rangeEnd) {
       if (overlaps(occStart, occEnd, rangeStart, rangeEnd)) {
         out.push({
           ...e,
