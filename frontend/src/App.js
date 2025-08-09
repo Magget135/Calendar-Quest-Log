@@ -19,7 +19,7 @@ function App() {
     setModalOpen(true);
   };
 
-  const handleEdit = (evt) =&gt; {
+  const handleEdit = (evt) => {
     setModalInitial(evt);
     setModalOpen(true);
   };
