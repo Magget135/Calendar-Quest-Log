@@ -49,7 +49,7 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-white text-[#1f1f1f]">
         <TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} />
-        &lt;div className="flex"&gt;
+        <div className="flex">
           &lt;LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} /&gt;
           &lt;main className="flex-1"&gt;
             &lt;CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} /&gt;
