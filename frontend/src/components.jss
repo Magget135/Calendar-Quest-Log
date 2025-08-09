@@ -22,7 +22,7 @@ const addMonths = (d, n) => {
   nd.setMonth(nd.getMonth() + n);
   return nd;
 };
-const sameDay = (a, b) =&gt; a.getFullYear() === b.getFullYear() &amp;&amp; a.getMonth() === b.getMonth() &amp;&amp; a.getDate() === b.getDate();
+const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 const toISO = (d) =&gt; `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 const parseISOish = (s) =&gt; new Date(s);
 const getWeekStart = (d, weekStartsOnSunday = true) =&gt; {
