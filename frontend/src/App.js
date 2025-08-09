@@ -24,7 +24,7 @@ function App() {
     setModalOpen(true);
   };
 
-  const onSave = (payload) =&gt; {
+  const onSave = (payload) => {
     if (modalInitial?.id) {
       updateEvent(modalInitial.id, payload);
     } else {
