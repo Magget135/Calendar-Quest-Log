@@ -142,7 +142,7 @@ const expandRecurringTasks = (tasks, rangeStart, rangeEnd) =&gt; {
       if (yearsDiff &gt; 0) occ = addYears(occ, yearsDiff);
     }
 
-    while (iter &lt; maxIters &amp;&amp; occ &lt;= rangeEnd) {
+    while (iter < maxIters && occ <= rangeEnd) {
       if (overlaps(occ, occ, rangeStart, rangeEnd)) {
         out.push({
           ...t,
