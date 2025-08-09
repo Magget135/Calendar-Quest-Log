@@ -483,7 +483,7 @@ const MonthView = ({ date, events, calendars, onCreate, onEdit }) => {
           return (
             <div key={idx} className={`bg-white min-h-[120px] hover:bg-gray-50 transition ${sameDay(d, new Date()) ? "outline outline-2 outline-[#1a73e8] -outline-offset-2" : ""}`}>
               <div className="flex items-center justify-between px-2 py-1">
-                <button onClick={() => onCreate({ start: d, end: d, allDay: true })} className={`text-xs font-medium px-1.5 py-0.5 rounded ${other ? "text-gray-400" : "text-gray-700"}`}>{d.getDate()}</button>
+                <button data-testid="month-date" onClick={() => onCreate({ start: d, end: d, allDay: true })} className={`text-xs font-medium px-1.5 py-0.5 rounded ${other ? "text-gray-400" : "text-gray-700"}`}>{d.getDate()}</button>
               </div>
               <div className="px-2 pb-2 space-y-1">
                 {evs.slice(0, 3).map((e) => (
