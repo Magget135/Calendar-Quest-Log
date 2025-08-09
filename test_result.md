@@ -142,9 +142,7 @@
 ##   test_sequence: 4
 ##   run_ui: true
 ## test_plan:
-##   current_focus:
-##     - "Now indicator (red line) visible on current day in Week/Day views"
-##     - "Double-click in time grid opens Event modal"
+##   current_focus: []
 ##   stuck_tasks: []
 ##   test_all: false
 ##   test_priority: "high_first"
