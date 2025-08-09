@@ -33,7 +33,7 @@ const getWeekStart = (d, weekStartsOnSunday = true) => {
   nd.setHours(0,0,0,0);
   return nd;
 };
-const clamp = (val, min, max) =&gt; Math.max(min, Math.min(val, max));
+const clamp = (val, min, max) => Math.max(min, Math.min(val, max));
 
 /********************** Colors &amp; Fonts **********************/
 // Google Calendar primary and accents (approx)
