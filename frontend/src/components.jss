@@ -329,6 +329,23 @@ export const CalendarView = ({ view, date, events, calendars, onCreate, onEdit }
 
 const hours = [...Array(24)].map((_, i) => i);
 
+// Auto-scroll helper to bring a target hour into view on initial render
+const useAutoScrollToHour = (scrollRef, targetHour) => {
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const t = typeof targetHour === "number" ? targetHour : Math.max(0, new Date().getHours() - 2);
+    const measureAndScroll = () => {
+      const hourCell = el.querySelector('[data-hour="8"]') || el.querySelector('[data-hour="0"]');
+      const hourHeight = hourCell ? hourCell.offsetHeight : 64;
+      const y = Math.max(0, t * hourHeight - 40);
+      el.scrollTo({ top: y, behavior: "smooth" });
+    };
+    const id = setTimeout(measureAndScroll, 60);
+    return () => clearTimeout(id);
+  }, [scrollRef, targetHour]);
+};
+
 const NowIndicator = ({ date }) => {
   // Only render for today in Day/Week views
   const [top, setTop] = useState(0);
