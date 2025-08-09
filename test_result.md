@@ -143,8 +143,8 @@
 ##   run_ui: true
 ## test_plan:
 ##   current_focus:
-##     - "Month view: click date cell's number opens Create flow (all-day)"
 ##     - "Now indicator (red line) visible on current day in Week/Day views"
+##     - "Double-click in time grid opens Event modal"
 ##   stuck_tasks: []
 ##   test_all: false
 ##   test_priority: "high_first"
