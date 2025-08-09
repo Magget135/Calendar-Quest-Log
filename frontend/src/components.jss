@@ -526,12 +526,30 @@ const MonthView = ({ date, events, calendars, onCreate, onEdit }) => {
   );
 };
 
-const AllDayRow = ({ date, events, onEdit }) => {
+const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars }) => {
   return (
-    <div className="min-h-[38px] flex flex-wrap gap-1">
-      {events.map((e) => (
-        <button key={e.id} onClick={() => onEdit(e)} className="px-2 py-0.5 rounded text-[12px] text-white" style={{ background: GC_COLORS.primary }}>{e.title}</button>
-      ))}
+    <div className="min-h-[38px] flex flex-col gap-1">
+      <div className="flex flex-wrap gap-1">
+        {events.map((e) => (
+          <button key={e.id} onClick={() => onEdit(e)} className="px-2 py-0.5 rounded text-[12px] text-white shadow-sm hover:brightness-95" style={{ background: getCalendarColor(e.calendarId, calendars) }}>{e.title}</button>
+        ))}
+      </div>
+      {timedEvents.length > 0 && (
+        <div className="flex flex-wrap gap-1">
+          {timedEvents.slice(0, 2).map((e) => {
+            const s = parseISOish(e.start);
+            return (
+              <button key={`t-${e.id}`} onClick={() => onEdit(e)} className="px-1.5 py-0.5 rounded bg-gray-50 hover:bg-gray-100 text-[11px] text-gray-700 inline-flex items-center gap-1">
+                <span className="inline-block w-2 h-2 rounded" style={{ background: getCalendarColor(e.calendarId, calendars) }} />
+                <span>{toTimeLabel(s)} {e.title}</span>
+              </button>
+            );
+          })}
+          {timedEvents.length > 2 && (
+            <div className="text-[11px] text-blue-700">+{timedEvents.length - 2} more</div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
