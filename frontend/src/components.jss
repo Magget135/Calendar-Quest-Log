@@ -404,22 +404,22 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
         </button>
       </div>
 
-      &lt;div className="px-3 pb-4"&gt;
-        &lt;MiniMonth date={date} onDateChange={onDateChange} /&gt;
-      &lt;/div&gt;
+      <div className="px-3 pb-4">
+        <MiniMonth date={date} onDateChange={onDateChange} />
+      </div>
 
-      &lt;div className="px-3 pb-4"&gt;
-        &lt;div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2"&gt;My calendars&lt;/div&gt;
-        &lt;div className="space-y-2"&gt;
-          {calendars.map((c) =&gt; (
-            &lt;label key={c.id} className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none"&gt;
-              &lt;input type="checkbox" checked={c.checked} onChange={(e) =&gt; setCalendars((prev) =&gt; prev.map(p =&gt; p.id === c.id ? { ...p, checked: e.target.checked } : p))} /&gt;
-              &lt;span className="inline-block w-3 h-3 rounded" style={{ background: c.color }} /&gt;
-              &lt;span&gt;{c.name}&lt;/span&gt;
-            &lt;/label&gt;
+      <div className="px-3 pb-4">
+        <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">My calendars</div>
+        <div className="space-y-2">
+          {calendars.map((c) => (
+            <label key={c.id} className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none">
+              <input type="checkbox" checked={c.checked} onChange={(e) => setCalendars((prev) => prev.map(p => p.id === c.id ? { ...p, checked: e.target.checked } : p))} />
+              <span className="inline-block w-3 h-3 rounded" style={{ background: c.color }} />
+              <span>{c.name}</span>
+            </label>
           ))}
-        &lt;/div&gt;
-      &lt;/div&gt;
+        </div>
+      </div>
 
       &lt;div className="px-3 pb-6 border-t border-gray-100 pt-4"&gt;
         &lt;div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2"&gt;Tasks&lt;/div&gt;
