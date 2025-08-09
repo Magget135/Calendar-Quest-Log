@@ -386,7 +386,7 @@ const DayView = ({ date, events, calendars, onCreate, onEdit }) => {
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
         <div className="bg-white" />
         <div className="bg-white border-b border-gray-200 px-4 py-2">
-          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} onEdit={onEdit} />
+          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} />
         </div>
       </div>
       <div className="relative grid" style={{ gridTemplateColumns: "64px 1fr" }}>
