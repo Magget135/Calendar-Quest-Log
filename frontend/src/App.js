@@ -46,7 +46,7 @@ function App() {
   const onToday = () => setDate(new Date());
 
   return (
-    &lt;BrowserRouter&gt;
+    <BrowserRouter>
       &lt;div className="min-h-screen bg-white text-[#1f1f1f]"&gt;
         &lt;TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} /&gt;
         &lt;div className="flex"&gt;
