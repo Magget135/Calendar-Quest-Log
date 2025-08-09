@@ -63,7 +63,7 @@ const defaultCalendars = [
 ];
 
 let idCounter = 1000;
-const makeId = () =&gt; `evt-${idCounter++}`;
+const makeId = () => `evt-${idCounter++}`;
 
 const seedEvents = [
   {
