@@ -431,7 +431,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit }) => {
       <div className="relative grid" style={{ gridTemplateColumns: "64px repeat(7, 1fr)" }}>
         <div className="bg-white">
           {hours.map((h) => (
-            <div key={h} className="h-16 border-t border-gray-100 text-[11px] text-right pr-2 text-gray-500">
+            <div key={h} data-hour={h} className="h-16 border-t border-gray-100 text-[11px] text-right pr-2 text-gray-500">
               <div className="-mt-2">{h === 0 ? "" : h > 12 ? `${h-12}pm` : h === 12 ? "12pm" : `${h}am`}</div>
             </div>
           ))}
