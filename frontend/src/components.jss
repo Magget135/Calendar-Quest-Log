@@ -617,7 +617,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
 
   return (
     <div ref={scrollRef} className="flex-1 overflow-auto">
-      <div className="grid" style={{ gridTemplateColumns: "64px repeat(7, 1fr)" }}>
+      <div className="grid sticky top-0 z-20 bg-white" style={{ gridTemplateColumns: "64px repeat(7, 1fr)" }}>
         <div className="bg-white border-b border-gray-200" />
         {days.map((d, i) => (
           <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
