@@ -294,8 +294,8 @@ const MiniMonth = ({ date, onDateChange }) => {
         <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, 1))}><Icon name="chev-right" /></button>
       </div>
       <div className="grid grid-cols-7 gap-px bg-gray-200 text-[11px] text-gray-500">
-        {["S","M","T","W","T","F","S"].map((d) => (
-          <div key={d} className="bg-white px-2 py-1 text-center font-medium">{d}</div>
+        {["S","M","T","W","T","F","S"].map((d, i) => (
+          <div key={`${d}-${i}`} className="bg-white px-2 py-1 text-center font-medium">{d}</div>
         ))}
       </div>
       <div className="grid grid-cols-7 gap-px bg-gray-200">
