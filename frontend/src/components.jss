@@ -480,11 +480,11 @@ const MiniMonth = ({ date, onDateChange }) => {
 };
 
 /********************** Calendar Grids **********************/
-export const CalendarView = ({ view, date, events, calendars, onCreate, onEdit, tasks = [], showTasks = true, onToggleTaskStatus, onEditTask }) =&gt; {
-  if (view === "day") return &lt;DayView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} /&gt;;
-  if (view === "week") return &lt;WeekView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} /&gt;;
-  if (view === "month") return &lt;MonthView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} /&gt;;
-  return &lt;SchedulePlaceholder /&gt;;
+export const CalendarView = ({ view, date, events, calendars, onCreate, onEdit, tasks = [], showTasks = true, onToggleTaskStatus, onEditTask }) => {
+  if (view === "day") return <DayView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />;
+  if (view === "week") return <WeekView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />;
+  if (view === "month") return <MonthView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />;
+  return <SchedulePlaceholder />;
 };
 
 const hours = [...Array(24)].map((_, i) =&gt; i);
