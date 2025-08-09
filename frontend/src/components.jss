@@ -418,8 +418,11 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit }) => {
   const filtered = useMemo(() => filterEventsByCalendars(events, calendars), [events, calendars]);
   const byDay = days.map(d => filtered.filter(e => sameDay(parseISOish(e.start), d) || (e.allDay && (parseISOish(e.start) <= endOfDay(d) && parseISOish(e.end) >= startOfDay(d)))));
 
+  const scrollRef = useRef(null);
+  useAutoScrollToHour(scrollRef);
+
   return (
-    <div className="flex-1 overflow-auto">
+    <div ref={scrollRef} className="flex-1 overflow-auto">
       <div className="grid" style={{ gridTemplateColumns: "64px repeat(7, 1fr)" }}>
         <div className="bg-white" />
         {days.map((d, i) => (
