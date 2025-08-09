@@ -119,79 +119,79 @@ const seedTasks = [
 ];
 
 /********************** Icons **********************/
-const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
+const Icon = ({ name, className = "w-5 h-5" }) => {
   const props = { className, fill: "none", stroke: "currentColor", strokeWidth: 1.8 };
   switch (name) {
     case "menu":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
+        </svg>
       );
     case "chev-left":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       );
     case "chev-right":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       );
     case "search":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;circle cx="11" cy="11" r="7" strokeLinecap="round" /&gt;
-          &lt;path d="M20 20l-3.5-3.5" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <circle cx="11" cy="11" r="7" strokeLinecap="round" />
+          <path d="M20 20l-3.5-3.5" />
+        </svg>
       );
     case "help":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M12 18h.01M9.09 9a3 3 0 115.83 1c-.5.9-1.33 1.3-1.92 1.75-.37.28-.67.64-.86 1.06-.14.31-.24.65-.24 1.19" strokeLinecap="round" strokeLinejoin="round" /&gt;
-          &lt;circle cx="12" cy="12" r="9" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M12 18h.01M9.09 9a3 3 0 115.83 1c-.5.9-1.33 1.3-1.92 1.75-.37.28-.67.64-.86 1.06-.14.31-.24.65-.24 1.19" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="12" cy="12" r="9" />
+        </svg>
       );
     case "settings":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" /&gt;
-          &lt;path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06c.46-.46.6-1.14.33-1.82.27-.6.88-1 1.58-1H21a2 2 0 010 4h-.09c-.7 0-1.31.4-1.51 1z" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" />
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06c.46-.46.6-1.14.33-1.82.27-.6.88-1 1.58-1H21a2 2 0 010 4h-.09c-.7 0-1.31.4-1.51 1z" />
+        </svg>
       );
     case "apps":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;circle cx="5" cy="5" r="2" /&gt;
-          &lt;circle cx="12" cy="5" r="2" /&gt;
-          &lt;circle cx="19" cy="5" r="2" /&gt;
-          &lt;circle cx="5" cy="12" r="2" /&gt;
-          &lt;circle cx="12" cy="12" r="2" /&gt;
-          &lt;circle cx="19" cy="12" r="2" /&gt;
-          &lt;circle cx="5" cy="19" r="2" /&gt;
-          &lt;circle cx="12" cy="19" r="2" /&gt;
-          &lt;circle cx="19" cy="19" r="2" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <circle cx="5" cy="5" r="2" />
+          <circle cx="12" cy="5" r="2" />
+          <circle cx="19" cy="5" r="2" />
+          <circle cx="5" cy="12" r="2" />
+          <circle cx="12" cy="12" r="2" />
+          <circle cx="19" cy="12" r="2" />
+          <circle cx="5" cy="19" r="2" />
+          <circle cx="12" cy="19" r="2" />
+          <circle cx="19" cy="19" r="2" />
+        </svg>
       );
     case "plus":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M12 5v14M5 12h14" strokeLinecap="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+        </svg>
       );
     case "check":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       );
     case "dot":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;circle cx="12" cy="12" r="5" fill="currentColor" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <circle cx="12" cy="12" r="5" fill="currentColor" />
+        </svg>
       );
     default:
       return null;
