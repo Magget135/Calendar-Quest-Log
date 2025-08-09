@@ -394,15 +394,15 @@ const ViewToggle = ({ view, setView }) => {
 };
 
 /********************** Left Sidebar **********************/
-export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalendars, showTasks, setShowTasks }) =&gt; {
+export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalendars, showTasks, setShowTasks }) => {
   return (
-    &lt;aside className="w-[300px] shrink-0 border-r border-gray-200 bg-white hidden lg:block"&gt;
-      &lt;div className="p-4"&gt;
-        &lt;button data-testid="create" onClick={() =&gt; onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-[#1a73e8] hover:bg-[#1557b0] text-white rounded-md py-2.5 shadow-sm transition"&gt;
-          &lt;Icon name="plus" className="w-5 h-5" /&gt;
-          &lt;span className="font-medium"&gt;Create&lt;/span&gt;
-        &lt;/button&gt;
-      &lt;/div&gt;
+    <aside className="w-[300px] shrink-0 border-r border-gray-200 bg-white hidden lg:block">
+      <div className="p-4">
+        <button data-testid="create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-[#1a73e8] hover:bg-[#1557b0] text-white rounded-md py-2.5 shadow-sm transition">
+          <Icon name="plus" className="w-5 h-5" />
+          <span className="font-medium">Create</span>
+        </button>
+      </div>
 
       &lt;div className="px-3 pb-4"&gt;
         &lt;MiniMonth date={date} onDateChange={onDateChange} /&gt;
