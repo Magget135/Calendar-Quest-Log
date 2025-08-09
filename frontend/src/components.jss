@@ -321,7 +321,7 @@ const MiniMonth = ({ date, onDateChange }) => {
 
   return (
     <div className="rounded-lg border border-gray-200 overflow-hidden">
-      <div className="flex items-center justify-between px-3 py-2 bg:white">
+      <div className="flex items-center justify-between px-3 py-2 bg-white">
         <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, -1))}><Icon name="chev-left" /></button>
         <div className="text-sm font-medium">{cursor.toLocaleString(undefined, { month: "long", year: "numeric" })}</div>
         <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, 1))}><Icon name="chev-right" /></button>
