@@ -310,9 +310,9 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
       );
     case "check":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       );
     case "dot":
       return (
