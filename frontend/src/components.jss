@@ -25,7 +25,7 @@ const addMonths = (d, n) => {
 const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 const toISO = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 const parseISOish = (s) => new Date(s);
-const getWeekStart = (d, weekStartsOnSunday = true) =&gt; {
+const getWeekStart = (d, weekStartsOnSunday = true) => {
   const day = d.getDay(); // 0 Sun - 6 Sat
   const diff = weekStartsOnSunday ? -day : (day === 0 ? -6 : 1 - day);
   const nd = new Date(d);
