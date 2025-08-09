@@ -136,12 +136,20 @@
 ##   test_sequence: 3
 ##   run_ui: true
 ## test_plan:
-##   current_focus: []
+##   current_focus:
+##     - "UI loads without console errors at provided Frontend URL"
+##     - "TopBar renders: Calendar title, date range text, navigation buttons"
+##     - "View toggle switches Day/Week/Month correctly"
+##     - "+ Create opens Event details modal and Save closes it"
+##     - "Double-click on Week grid creates a 1-hour event"
+##     - "Month view: click date cell's number opens Create flow (all-day)"
+##     - "Sidebar calendar toggles filter events"
+##     - "Now indicator (red line) visible on current day in Week/Day views"
+##     - "Responsive behavior at 375x740 and 1280x800"
+##     - "No backend calls are required; ensure app does not hardcode URLs"
 ##   stuck_tasks: []
-##   test_all: false
+##   test_all: true
 ##   test_priority: "high_first"
 ## agent_communication:
 ##   -agent: "main"
-##   -message: "Please run backend health check only. After that, I will request frontend UI tests if the user approves."
-##   -agent: "testing"
-##   -message: "Backend health check completed successfully. FastAPI server is running properly at /api/ endpoint with HTTP 200 response and valid JSON. Created backend_test.py for verification. Ready for frontend testing if approved by user."
+##   -message: "Please run FRONTEND UI tests now per current_focus. Use selectors: [data-testid='create'], [data-testid='save-event'], [data-testid='current-range']. Verify view switching, modal open/save, double-click create, month-date create, sidebar filter, responsiveness, and now-indicator. Use the provided Frontend URL. Update this file accordingly."
