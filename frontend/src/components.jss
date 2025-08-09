@@ -531,9 +531,9 @@ const NowIndicator = ({ date }) => {
   );
 };
 
-const filterEventsByCalendars = (events, calendars) =&gt; {
-  const allowed = new Set(calendars.filter(c =&gt; c.checked).map(c =&gt; c.id));
-  return events.filter(e =&gt; allowed.has(e.calendarId));
+const filterEventsByCalendars = (events, calendars) => {
+  const allowed = new Set(calendars.filter(c => c.checked).map(c => c.id));
+  return events.filter(e => allowed.has(e.calendarId));
 };
 
 const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus, onEditTask }) =&gt; {
