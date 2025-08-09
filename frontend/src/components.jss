@@ -316,9 +316,9 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
       );
     case "dot":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;circle cx="12" cy="12" r="5" fill="currentColor" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <circle cx="12" cy="12" r="5" fill="currentColor" />
+        </svg>
       );
     default:
       return null;
