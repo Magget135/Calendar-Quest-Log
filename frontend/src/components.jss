@@ -257,9 +257,9 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
       );
     case "chev-left":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       );
     case "chev-right":
       return (
