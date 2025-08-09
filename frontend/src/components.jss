@@ -650,7 +650,7 @@ const GridClickCatcher = ({ date, onCreate }) => {
     onCreate({ start, end, allDay: false });
   };
 
-  return <div ref={ref} className="absolute inset-0" onDoubleClick={onDoubleClick} />;
+  return <div ref={ref} className="absolute inset-0" onDoubleClick={onDoubleClick} style={{ zIndex: 10 }} />;
 };
 
 const getCalendarColor = (calendarId, calendars) => calendars.find(c => c.id === calendarId)?.color || GC_COLORS.primary;
