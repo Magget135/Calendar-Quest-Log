@@ -350,12 +350,12 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
           </div>
         </div>
 
-        &lt;div className="flex-1 max-w-[520px] mx-4 hidden md:flex items-center"&gt;
-          &lt;div className="relative flex-1"&gt;
-            &lt;span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"&gt;&lt;Icon name="search" /&gt;&lt;/span&gt;
-            &lt;input className="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full outline-none text-sm focus:ring-2 focus:ring-blue-500" placeholder="Search" /&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+        <div className="flex-1 max-w-[520px] mx-4 hidden md:flex items-center">
+          <div className="relative flex-1">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"><Icon name="search" /></span>
+            <input className="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full outline-none text-sm focus:ring-2 focus:ring-blue-500" placeholder="Search" />
+          </div>
+        </div>
 
         &lt;div className="hidden md:flex items-center gap-1"&gt;
           &lt;button className="p-2 rounded hover:bg-gray-100" aria-label="Help"&gt;&lt;Icon name="help" /&gt;&lt;/button&gt;
