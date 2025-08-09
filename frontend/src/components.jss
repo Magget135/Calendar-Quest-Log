@@ -600,16 +600,15 @@ const EventBlocks = ({ events, date, onEdit, calendars }) => {
   );
 };
 
-const toTimeRange = (s, e) => {
-  const fmt = (d) => {
-    const h = d.getHours();
-    const m = pad(d.getMinutes());
-    const ap = h >= 12 ? "PM" : "AM";
-    const hh = h % 12 === 0 ? 12 : h % 12;
-    return `${hh}:${m} ${ap}`;
-  };
-  return `${fmt(s)} - ${fmt(e)}`;
+const toTimeLabel = (d) => {
+  const h = d.getHours();
+  const m = pad(d.getMinutes());
+  const ap = h >= 12 ? "PM" : "AM";
+  const hh = h % 12 === 0 ? 12 : h % 12;
+  return `${hh}:${m} ${ap}`;
 };
+
+const toTimeRange = (s, e) => `${toTimeLabel(s)} - ${toTimeLabel(e)}`;
 
 /********************** Event Modal **********************/
 export const EventModal = ({ open, onClose, onSave, initial, calendars }) => {
