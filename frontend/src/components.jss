@@ -372,10 +372,10 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
         <div className="text-[18px] font-semibold">{title}</div>
       </div>
 
-      &lt;div className="px-4 sm:px-6 py-2 border-t border-gray-100 flex items-center gap-2"&gt;
-        &lt;ViewToggle view={view} setView={setView} /&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+      <div className="px-4 sm:px-6 py-2 border-t border-gray-100 flex items-center gap-2">
+        <ViewToggle view={view} setView={setView} />
+      </div>
+    </div>
   );
 };
 
