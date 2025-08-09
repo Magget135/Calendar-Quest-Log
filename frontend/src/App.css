@@ -1,38 +1,27 @@
-.App {
-    text-align: center;
+/* Global tweaks aligning to Google Calendar feel */
+:root {
+  --gc-primary: #1a73e8;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+html, body, #root {
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+body {
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #1f1f1f;
+  background: #fff;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.App-link {
-    color: #61dafb;
-}
+/* Scrollbar subtle style */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
+/* Utility */
+.shadow-soft { box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
