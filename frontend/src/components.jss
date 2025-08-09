@@ -507,11 +507,11 @@ const useAutoScrollToHour = (scrollRef, targetHour) =&gt; {
   }, [scrollRef, targetHour]);
 };
 
-const NowIndicator = ({ date }) =&gt; {
+const NowIndicator = ({ date }) => {
   // Only render for today in Day/Week views
   const [top, setTop] = useState(0);
-  useEffect(() =&gt; {
-    const tick = () =&gt; {
+  useEffect(() => {
+    const tick = () => {
       const now = new Date();
       const minutes = now.getHours() * 60 + now.getMinutes();
       const pct = minutes / (24 * 60);
@@ -519,15 +519,15 @@ const NowIndicator = ({ date }) =&gt; {
     };
     tick();
     const t = setInterval(tick, 60 * 1000);
-    return () =&gt; clearInterval(t);
+    return () => clearInterval(t);
   }, []);
   const isToday = sameDay(date, new Date());
   if (!isToday) return null;
   return (
-    &lt;div className="absolute left-0 right-0 z-10 pointer-events-none" style={{ top: `${top}%` }}&gt;
-      &lt;div className="absolute -left-2 w-2 h-2 bg-[#ea4335] rounded-full" /&gt;
-      &lt;div className="border-t-2 border-[#ea4335]" /&gt;
-    &lt;/div&gt;
+    <div className="absolute left-0 right-0 z-10 pointer-events-none" style={{ top: `${top}%` }}>
+      <div className="absolute -left-2 w-2 h-2 bg-[#ea4335] rounded-full" />
+      <div className="border-t-2 border-[#ea4335]" />
+    </div>
   );
 };
 
