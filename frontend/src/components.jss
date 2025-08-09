@@ -365,12 +365,12 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
         </div>
       </div>
 
-      &lt;div className="md:hidden flex items-center gap-2 px-4 pb-3"&gt;
-        &lt;button onClick={onPrev} className="p-1.5 rounded hover:bg-gray-100" aria-label="Previous"&gt;&lt;Icon name="chev-left" /&gt;&lt;/button&gt;
-        &lt;button onClick={onNext} className="p-1.5 rounded hover:bg-gray-100" aria-label="Next"&gt;&lt;Icon name="chev-right" /&gt;&lt;/button&gt;
-        &lt;button onClick={onToday} className="px-3 py-1 border rounded text-sm"&gt;Today&lt;/button&gt;
-        &lt;div className="text-[18px] font-semibold"&gt;{title}&lt;/div&gt;
-      &lt;/div&gt;
+      <div className="md:hidden flex items-center gap-2 px-4 pb-3">
+        <button onClick={onPrev} className="p-1.5 rounded hover:bg-gray-100" aria-label="Previous"><Icon name="chev-left" /></button>
+        <button onClick={onNext} className="p-1.5 rounded hover:bg-gray-100" aria-label="Next"><Icon name="chev-right" /></button>
+        <button onClick={onToday} className="px-3 py-1 border rounded text-sm">Today</button>
+        <div className="text-[18px] font-semibold">{title}</div>
+      </div>
 
       &lt;div className="px-4 sm:px-6 py-2 border-t border-gray-100 flex items-center gap-2"&gt;
         &lt;ViewToggle view={view} setView={setView} /&gt;
