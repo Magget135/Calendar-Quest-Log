@@ -9,7 +9,9 @@ function App() {
   const [date, setDate] = useState(new Date());
   const title = useMemo(() => rangeTitle(view, date), [view, date]);
 
-  const { calendars, setCalendars, events, addEvent, updateEvent } = useCalendarState();
+  const { calendars, setCalendars, events, addEvent, updateEvent, tasks, setTasks, updateTaskStatus } = useCalendarState();
+
+  const [showTasks, setShowTasks] = useState(true);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalInitial, setModalInitial] = useState(null);
@@ -50,9 +52,27 @@ function App() {
       <div className="min-h-screen bg-white text-[#1f1f1f]">
         <TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} />
         <div className="flex">
-          <LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} />
+          <LeftSidebar
+            date={date}
+            onDateChange={setDate}
+            onCreate={handleCreate}
+            calendars={calendars}
+            setCalendars={setCalendars}
+            showTasks={showTasks}
+            setShowTasks={setShowTasks}
+          />
           <main className="flex-1">
-            <CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} />
+            <CalendarView
+              view={view}
+              date={date}
+              events={events}
+              calendars={calendars}
+              onCreate={handleCreate}
+              onEdit={handleEdit}
+              tasks={tasks}
+              showTasks={showTasks}
+              onToggleTaskStatus={updateTaskStatus}
+            />
           </main>
         </div>
 
