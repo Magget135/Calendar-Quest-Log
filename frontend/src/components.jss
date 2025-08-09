@@ -536,56 +536,56 @@ const filterEventsByCalendars = (events, calendars) => {
   return events.filter(e => allowed.has(e.calendarId));
 };
 
-const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus, onEditTask }) =&gt; {
+const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus, onEditTask }) => {
   const rangeStart = startOfDay(date);
   const rangeEnd = endOfDay(date);
-  const filtered = useMemo(() =&gt; filterEventsByCalendars(events, calendars), [events, calendars]);
-  const expanded = useMemo(() =&gt; expandRecurringEvents(filtered, rangeStart, rangeEnd), [filtered, rangeStart, rangeEnd]);
-  const dayEvents = expanded.filter(e =&gt; {
+  const filtered = useMemo(() => filterEventsByCalendars(events, calendars), [events, calendars]);
+  const expanded = useMemo(() => expandRecurringEvents(filtered, rangeStart, rangeEnd), [filtered, rangeStart, rangeEnd]);
+  const dayEvents = expanded.filter(e => {
     const s = parseISOish(e.start); const en = parseISOish(e.end);
-    return overlaps(s, en, rangeStart, rangeEnd) || (e.allDay &amp;&amp; overlaps(s, endOfDay(s), rangeStart, rangeEnd));
+    return overlaps(s, en, rangeStart, rangeEnd) || (e.allDay && overlaps(s, endOfDay(s), rangeStart, rangeEnd));
   });
-  const expandedTasks = useMemo(() =&gt; expandRecurringTasks(tasks, rangeStart, rangeEnd), [tasks, rangeStart, rangeEnd]);
-  const dayTasks = useMemo(() =&gt; expandedTasks.filter(t =&gt; sameDay(parseISOish(t.date), date)), [expandedTasks, date]);
+  const expandedTasks = useMemo(() => expandRecurringTasks(tasks, rangeStart, rangeEnd), [tasks, rangeStart, rangeEnd]);
+  const dayTasks = useMemo(() => expandedTasks.filter(t => sameDay(parseISOish(t.date), date)), [expandedTasks, date]);
 
   const scrollRef = useRef(null);
   useAutoScrollToHour(scrollRef);
   return (
-    &lt;div ref={scrollRef} className="flex-1 overflow-auto"&gt;
-      &lt;div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}&gt;
-        &lt;div className="bg-white" /&gt;
-        &lt;div className="bg-white border-b border-gray-200 px-4 py-2"&gt;
-          &lt;AllDayRow date={date} events={dayEvents.filter(e =&gt; e.allDay)} timedEvents={dayEvents.filter(e =&gt; !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayTasks : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} /&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}&gt;
-        &lt;div className="bg-white"&gt;
-          {hours.map((h) =&gt; (
-            &lt;div key={h} data-hour={h} className="h-16 border-t border-gray-100 text-[11px] text-right pr-2 text-gray-500"&gt;
-              &lt;div className="-mt-2"&gt;{h === 0 ? "" : h &gt; 12 ? `${h-12}pm` : h === 12 ? "12pm" : `${h}am`}&lt;/div&gt;
-            &lt;/div&gt;
+    <div ref={scrollRef} className="flex-1 overflow-auto">
+      <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
+        <div className="bg-white" />
+        <div className="bg-white border-b border-gray-200 px-4 py-2">
+          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayTasks : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
+        </div>
+      </div>
+      <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
+        <div className="bg-white">
+          {hours.map((h) => (
+            <div key={h} data-hour={h} className="h-16 border-t border-gray-100 text-[11px] text-right pr-2 text-gray-500">
+              <div className="-mt-2">{h === 0 ? "" : h > 12 ? `${h-12}pm` : h === 12 ? "12pm" : `${h}am`}</div>
+            </div>
           ))}
-        &lt;/div&gt;
-        &lt;div className="bg-white border-l border-gray-100"&gt;
-          &lt;div className="relative" style={{ height: `${hours.length * HOUR_PX}px` }}&gt;
-            &lt;div className="absolute inset-0 pointer-events-none"&gt;
-              {hours.map((h) =&gt; (
-                &lt;div key={h} className="h-16 border-t border-gray-100" /&gt;
+        </div>
+        <div className="bg-white border-l border-gray-100">
+          <div className="relative" style={{ height: `${hours.length * HOUR_PX}px` }}>
+            <div className="absolute inset-0 pointer-events-none">
+              {hours.map((h) => (
+                <div key={h} className="h-16 border-t border-gray-100" />
               ))}
-            &lt;/div&gt;
-            &lt;div className="absolute inset-0"&gt;
-              &lt;NowIndicator date={date} /&gt;
-            &lt;/div&gt;
-            &lt;div className="absolute inset-0" style={{ zIndex: 10 }}&gt;
-              &lt;GridClickCatcher date={date} onCreate={onCreate} /&gt;
-            &lt;/div&gt;
-            &lt;div className="absolute inset-0" style={{ zIndex: 20 }}&gt;
-              &lt;EventBlocks events={dayEvents.filter(e =&gt; !e.allDay)} date={date} onEdit={onEdit} calendars={calendars} /&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+            </div>
+            <div className="absolute inset-0">
+              <NowIndicator date={date} />
+            </div>
+            <div className="absolute inset-0" style={{ zIndex: 10 }}>
+              <GridClickCatcher date={date} onCreate={onCreate} />
+            </div>
+            <div className="absolute inset-0" style={{ zIndex: 20 }}>
+              <EventBlocks events={dayEvents.filter(e => !e.allDay)} date={date} onEdit={onEdit} calendars={calendars} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
