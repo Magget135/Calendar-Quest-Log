@@ -101,3 +101,43 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+## user_problem_statement: "copy google calendar UI"
+## backend:
+##   - task: "Backend health endpoint reachable (/api/)"
+##     implemented: false
+##     working: NA
+##     file: "NA"
+##     stuck_count: 0
+##     priority: "low"
+##     needs_retesting: true
+##     status_history:
+##         -working: NA
+##         -agent: "main"
+##         -comment: "Frontend-only build. Please just verify that the FastAPI backend root `/api/` responds with 200 and JSON. No other backend features are required for this task."
+## frontend:
+##   - task: "Google Calendar UI replica - layout and interactions"
+##     implemented: true
+##     working: true
+##     file: "src/components.jss, src/App.js"
+##     stuck_count: 0
+##     priority: "high"
+##     needs_retesting: true
+##     status_history:
+##         -working: true
+##         -agent: "main"
+##         -comment: "Implemented TopBar, LeftSidebar with MiniMonth, Week/Day/Month views, Now indicator, Create modal, grid double-click creation, and calendar filters. Manual screenshot validation passed (modal open/save works)."
+## metadata:
+##   created_by: "main_agent"
+##   version: "1.0"
+##   test_sequence: 1
+##   run_ui: false
+## test_plan:
+##   current_focus:
+##     - "Backend health endpoint reachable (/api/)"
+##   stuck_tasks: []
+##   test_all: false
+##   test_priority: "high_first"
+## agent_communication:
+##   -agent: "main"
+##   -message: "Please run backend health check only. After that, I will request frontend UI tests if the user approves."
