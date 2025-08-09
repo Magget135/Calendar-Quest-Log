@@ -553,7 +553,7 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
   useAutoScrollToHour(scrollRef);
   return (
     <div ref={scrollRef} className="flex-1 overflow-auto">
-      <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
+      <div className="grid sticky top-0 z-20 bg-white" style={{ gridTemplateColumns: "64px 1fr" }}>
         <div className="bg-white border-b border-gray-200" />
         <div className="bg-white border-b border-gray-200 px-4 py-2">
           <div className="flex flex-col items-start leading-tight">
