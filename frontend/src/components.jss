@@ -609,6 +609,17 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
   return (
     <div ref={scrollRef} className="flex-1 overflow-auto">
       <div className="grid" style={{ gridTemplateColumns: "64px repeat(7, 1fr)" }}>
+        <div className="bg-white border-b border-gray-200" />
+        {days.map((d, i) => (
+          <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
+            <div className="flex flex-col items-start leading-tight">
+              <div className="text-xs text-gray-500 font-medium">{d.toLocaleDateString(undefined, { weekday: "short" })}</div>
+              <div className={`text-[18px] font-semibold ${sameDay(d, new Date()) ? "text-[#1a73e8]" : "text-gray-800"}`}>{d.getDate()}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="grid" style={{ gridTemplateColumns: "64px repeat(7, 1fr)" }}>
         <div className="bg-white" />
         {days.map((d, i) => (
           <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
