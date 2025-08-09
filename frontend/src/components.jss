@@ -4,6 +4,7 @@
   - No backend calls
   - TailwindCSS classes for styling
   - All data mocked locally
+  - HTML entities have been converted to proper JSX syntax
 */
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
