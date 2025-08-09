@@ -41,7 +41,7 @@ const getWeekStart = (d, weekStartsOnSunday = true) =&gt; {
 const clamp = (val, min, max) =&gt; Math.max(min, Math.min(val, max));
 
 // range helpers
-const overlaps = (aStart, aEnd, bStart, bEnd) =&gt; aStart &lt;= bEnd &amp;&amp; aEnd &gt;= bStart;
+const overlaps = (aStart, aEnd, bStart, bEnd) => aStart <= bEnd && aEnd >= bStart;
 const addInterval = (date, frequency) =&gt; {
   switch (frequency) {
     case "daily": return addDays(date, 1);
