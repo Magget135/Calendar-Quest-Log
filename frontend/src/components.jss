@@ -17,7 +17,7 @@ const addDays = (d, n) => {
   nd.setDate(nd.getDate() + n);
   return nd;
 };
-const addMonths = (d, n) =&gt; {
+const addMonths = (d, n) => {
   const nd = new Date(d);
   nd.setMonth(nd.getMonth() + n);
   return nd;
