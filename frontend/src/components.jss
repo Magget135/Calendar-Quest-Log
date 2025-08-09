@@ -554,6 +554,15 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
   return (
     <div ref={scrollRef} className="flex-1 overflow-auto">
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
+        <div className="bg-white border-b border-gray-200" />
+        <div className="bg-white border-b border-gray-200 px-4 py-2">
+          <div className="flex flex-col items-start leading-tight">
+            <div className="text-xs text-gray-500 font-medium">{date.toLocaleDateString(undefined, { weekday: "short" })}</div>
+            <div className={`text-[18px] font-semibold ${sameDay(date, new Date()) ? "text-[#1a73e8]" : "text-gray-800"}`}>{date.getDate()}</div>
+          </div>
+        </div>
+      </div>
+      <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
         <div className="bg-white" />
         <div className="bg-white border-b border-gray-200 px-4 py-2">
           <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayTasks : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
