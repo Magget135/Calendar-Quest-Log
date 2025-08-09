@@ -435,47 +435,47 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
   );
 };
 
-const MiniMonth = ({ date, onDateChange }) =&gt; {
+const MiniMonth = ({ date, onDateChange }) => {
   const [cursor, setCursor] = useState(startOfDay(new Date(date)));
 
-  useEffect(() =&gt; { setCursor(startOfDay(new Date(date))); }, [date]);
+  useEffect(() => { setCursor(startOfDay(new Date(date))); }, [date]);
 
   const year = cursor.getFullYear();
   const month = cursor.getMonth();
   const first = new Date(year, month, 1);
   const start = getWeekStart(first, true);
-  const days = [...Array(42)].map((_, i) =&gt; addDays(start, i));
+  const days = [...Array(42)].map((_, i) => addDays(start, i));
 
   return (
-    &lt;div className="rounded-lg border border-gray-200 overflow-hidden"&gt;
-      &lt;div className="flex items-center justify-between px-3 py-2 bg-white"&gt;
-        &lt;button className="p-1 rounded hover:bg-gray-100" onClick={() =&gt; setCursor(addMonths(cursor, -1))}&gt;&lt;Icon name="chev-left" /&gt;&lt;/button&gt;
-        &lt;div className="text-sm font-medium"&gt;{cursor.toLocaleString(undefined, { month: "long", year: "numeric" })}&lt;/div&gt;
-        &lt;button className="p-1 rounded hover:bg-gray-100" onClick={() =&gt; setCursor(addMonths(cursor, 1))}&gt;&lt;Icon name="chev-right" /&gt;&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div className="grid grid-cols-7 gap-px bg-gray-200 text-[11px] text-gray-500"&gt;
-        {["S","M","T","W","T","F","S"].map((d, i) =&gt; (
-          &lt;div key={`${d}-${i}`} className="bg-white px-2 py-1 text-center font-medium"&gt;{d}&lt;/div&gt;
+    <div className="rounded-lg border border-gray-200 overflow-hidden">
+      <div className="flex items-center justify-between px-3 py-2 bg-white">
+        <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, -1))}><Icon name="chev-left" /></button>
+        <div className="text-sm font-medium">{cursor.toLocaleString(undefined, { month: "long", year: "numeric" })}</div>
+        <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, 1))}><Icon name="chev-right" /></button>
+      </div>
+      <div className="grid grid-cols-7 gap-px bg-gray-200 text-[11px] text-gray-500">
+        {["S","M","T","W","T","F","S"].map((d, i) => (
+          <div key={`${d}-${i}`} className="bg-white px-2 py-1 text-center font-medium">{d}</div>
         ))}
-      &lt;/div&gt;
-      &lt;div className="grid grid-cols-7 gap-px bg-gray-200"&gt;
-        {days.map((d, idx) =&gt; {
+      </div>
+      <div className="grid grid-cols-7 gap-px bg-gray-200">
+        {days.map((d, idx) => {
           const isOther = d.getMonth() !== month;
           const isToday = sameDay(d, new Date());
           const isSelected = sameDay(d, date);
           return (
-            &lt;button key={idx} onClick={() =&gt; onDateChange(d)} className={`aspect-[1/0.8] bg-white p-2 text-left hover:bg-blue-50 focus:outline-none ${isSelected ? "ring-2 ring-blue-500" : ""}`}&gt;
-              &lt;div className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] ${isToday ? "text-white bg-[#1a73e8]" : "text-gray-800"} ${isOther ? "opacity-40" : ""}`}&gt;{d.getDate()}&lt;/div&gt;
-              &lt;div className="mt-1 flex gap-0.5"&gt;
-                &lt;span className="w-1 h-1 rounded-full bg-[#1a73e8]" /&gt;
-                &lt;span className="w-1 h-1 rounded-full bg-[#33b679]" /&gt;
-                &lt;span className="w-1 h-1 rounded-full bg-[#f4511e]" /&gt;
-              &lt;/div&gt;
-            &lt;/button&gt;
+            <button key={idx} onClick={() => onDateChange(d)} className={`aspect-[1/0.8] bg-white p-2 text-left hover:bg-blue-50 focus:outline-none ${isSelected ? "ring-2 ring-blue-500" : ""}`}>
+              <div className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] ${isToday ? "text-white bg-[#1a73e8]" : "text-gray-800"} ${isOther ? "opacity-40" : ""}`}>{d.getDate()}</div>
+              <div className="mt-1 flex gap-0.5">
+                <span className="w-1 h-1 rounded-full bg-[#1a73e8]" />
+                <span className="w-1 h-1 rounded-full bg-[#33b679]" />
+                <span className="w-1 h-1 rounded-full bg-[#f4511e]" />
+              </div>
+            </button>
           );
         })}
-      &lt;/div&gt;
-    &lt;/div&gt;
+      </div>
+    </div>
   );
 };
 
