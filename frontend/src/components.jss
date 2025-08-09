@@ -346,9 +346,9 @@ const NowIndicator = ({ date }) => {
   const isToday = sameDay(date, new Date());
   if (!isToday) return null;
   return (
-    <div className="absolute left-0 right-0" style={{ top: `${top}%` }}>
+    <div className="absolute left-0 right-0 z-20 pointer-events-none" style={{ top: `${top}%` }}>
       <div className="absolute -left-2 w-2 h-2 bg-[#ea4335] rounded-full" />
-      <div className="border-t border-[#ea4335]" />
+      <div className="border-t-2 border-[#ea4335]" />
     </div>
   );
 };
