@@ -11,7 +11,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 /********************** Utils **********************/
 const pad = (n) => (n < 10 ? `0${n}` : `${n}`);
 const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
-const endOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
+const endOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
 const addDays = (d, n) =&gt; {
   const nd = new Date(d);
   nd.setDate(nd.getDate() + n);
