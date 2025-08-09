@@ -421,17 +421,17 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
         </div>
       </div>
 
-      &lt;div className="px-3 pb-6 border-t border-gray-100 pt-4"&gt;
-        &lt;div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2"&gt;Tasks&lt;/div&gt;
-        &lt;label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none"&gt;
-          &lt;input type="checkbox" checked={showTasks} onChange={(e) =&gt; setShowTasks(e.target.checked)} /&gt;
-          &lt;span className="inline-flex items-center gap-1"&gt;
-            &lt;span className="inline-block w-3 h-3 rounded bg-amber-500" /&gt;
+      <div className="px-3 pb-6 border-t border-gray-100 pt-4">
+        <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Tasks</div>
+        <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none">
+          <input type="checkbox" checked={showTasks} onChange={(e) => setShowTasks(e.target.checked)} />
+          <span className="inline-flex items-center gap-1">
+            <span className="inline-block w-3 h-3 rounded bg-amber-500" />
             Show tasks on calendar
-          &lt;/span&gt;
-        &lt;/label&gt;
-      &lt;/div&gt;
-    &lt;/aside&gt;
+          </span>
+        </label>
+      </div>
+    </aside>
   );
 };
 
