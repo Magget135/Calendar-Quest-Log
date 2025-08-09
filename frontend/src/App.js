@@ -43,7 +43,7 @@ function App() {
     else if (view === "week") setDate((d) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7));
     else if (view === "month") setDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1));
   };
-  const onToday = () =&gt; setDate(new Date());
+  const onToday = () => setDate(new Date());
 
   return (
     &lt;BrowserRouter&gt;
