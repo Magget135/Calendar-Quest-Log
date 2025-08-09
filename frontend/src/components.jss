@@ -112,10 +112,10 @@ const seedEvents = [
 let taskIdCounter = 5000;
 const makeTaskId = () => `task-${taskIdCounter++}`;
 const seedTasks = [
-  { id: makeTaskId(), title: "Pay bills", date: toISO(addDays(weekStart, 1)), status: "pending" },
-  { id: makeTaskId(), title: "Draft PRD", date: toISO(addDays(weekStart, 2)), status: "incomplete" },
-  { id: makeTaskId(), title: "Buy groceries", date: toISO(addDays(weekStart, 3)), status: "completed" },
-  { id: makeTaskId(), title: "Call plumber", date: toISO(addDays(weekStart, 4)), status: "pending" },
+  { id: makeTaskId(), title: "Pay bills", date: toISO(addDays(weekStart, 1)), status: "pending", color: "#f59e0b", category: "Personal", frequency: "none" },
+  { id: makeTaskId(), title: "Draft PRD", date: toISO(addDays(weekStart, 2)), status: "incomplete", color: "#3b82f6", category: "Work", frequency: "none" },
+  { id: makeTaskId(), title: "Buy groceries", date: toISO(addDays(weekStart, 3)), status: "completed", color: "#10b981", category: "Personal", frequency: "none" },
+  { id: makeTaskId(), title: "Call plumber", date: toISO(addDays(weekStart, 4)), status: "pending", color: "#ef4444", category: "Home", frequency: "none" },
 ];
 
 /********************** Icons **********************/
@@ -321,7 +321,7 @@ const MiniMonth = ({ date, onDateChange }) => {
 
   return (
     <div className="rounded-lg border border-gray-200 overflow-hidden">
-      <div className="flex items-center justify-between px-3 py-2 bg-white">
+      <div className="flex items-center justify-between px-3 py-2 bg:white">
         <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, -1))}><Icon name="chev-left" /></button>
         <div className="text-sm font-medium">{cursor.toLocaleString(undefined, { month: "long", year: "numeric" })}</div>
         <button className="p-1 rounded hover:bg-gray-100" onClick={() => setCursor(addMonths(cursor, 1))}><Icon name="chev-right" /></button>
@@ -353,10 +353,10 @@ const MiniMonth = ({ date, onDateChange }) => {
 };
 
 /********************** Calendar Grids **********************/
-export const CalendarView = ({ view, date, events, calendars, onCreate, onEdit, tasks = [], showTasks = true, onToggleTaskStatus }) => {
-  if (view === "day") return <DayView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} />;
-  if (view === "week") return <WeekView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} />;
-  if (view === "month") return <MonthView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} />;
+export const CalendarView = ({ view, date, events, calendars, onCreate, onEdit, tasks = [], showTasks = true, onToggleTaskStatus, onEditTask }) => {
+  if (view === "day") return <DayView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />;
+  if (view === "week") return <WeekView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />;
+  if (view === "month") return <MonthView date={date} events={events} calendars={calendars} onCreate={onCreate} onEdit={onEdit} tasks={tasks} showTasks={showTasks} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />;
   return <SchedulePlaceholder />;
 };
 
@@ -397,7 +397,7 @@ const NowIndicator = ({ date }) => {
   const isToday = sameDay(date, new Date());
   if (!isToday) return null;
   return (
-    <div className="absolute left-0 right-0 z-20 pointer-events-none" style={{ top: `${top}%` }}>
+    <div className="absolute left-0 right-0 z-10 pointer-events-none" style={{ top: `${top}%` }}>
       <div className="absolute -left-2 w-2 h-2 bg-[#ea4335] rounded-full" />
       <div className="border-t-2 border-[#ea4335]" />
     </div>
@@ -409,7 +409,7 @@ const filterEventsByCalendars = (events, calendars) => {
   return events.filter(e => allowed.has(e.calendarId));
 };
 
-const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus }) => {
+const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus, onEditTask }) => {
   const filtered = useMemo(() => filterEventsByCalendars(events, calendars), [events, calendars]);
   const dayEvents = filtered.filter(e => sameDay(parseISOish(e.start), date) || (e.allDay && (parseISOish(e.start) <= endOfDay(date) && parseISOish(e.end) >= startOfDay(date))));
   const dayTasks = useMemo(() => tasks.filter(t => sameDay(parseISOish(t.date), date)), [tasks, date]);
@@ -421,7 +421,7 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
         <div className="bg-white" />
         <div className="bg-white border-b border-gray-200 px-4 py-2">
-          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayTasks : []} onToggleTaskStatus={onToggleTaskStatus} />
+          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayTasks : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
         </div>
       </div>
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
@@ -442,8 +442,10 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
             <div className="absolute inset-0">
               <NowIndicator date={date} />
             </div>
-            <GridClickCatcher date={date} onCreate={onCreate} />
-            <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0" style={{ zIndex: 10 }}>
+              <GridClickCatcher date={date} onCreate={onCreate} />
+            </div>
+            <div className="absolute inset-0" style={{ zIndex: 20 }}>
               <EventBlocks events={dayEvents.filter(e => !e.allDay)} date={date} onEdit={onEdit} calendars={calendars} />
             </div>
           </div>
@@ -453,7 +455,7 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
   );
 };
 
-const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus }) => {
+const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus, onEditTask }) => {
   const start = getWeekStart(date, true);
   const days = [...Array(7)].map((_, i) => addDays(start, i));
   const filtered = useMemo(() => filterEventsByCalendars(events, calendars), [events, calendars]);
@@ -469,7 +471,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
         <div className="bg-white" />
         {days.map((d, i) => (
           <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
-            <AllDayRow date={d} events={byDay[i].filter(e => e.allDay)} timedEvents={byDay[i].filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? tasksByDay[i] : []} onToggleTaskStatus={onToggleTaskStatus} />
+            <AllDayRow date={d} events={byDay[i].filter(e => e.allDay)} timedEvents={byDay[i].filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? tasksByDay[i] : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
           </div>
         ))}
       </div>
@@ -492,8 +494,10 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
               <div className="absolute inset-0">
                 <NowIndicator date={d} />
               </div>
-              <GridClickCatcher date={d} onCreate={onCreate} />
-              <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute inset-0" style={{ zIndex: 10 }}>
+                <GridClickCatcher date={d} onCreate={onCreate} />
+              </div>
+              <div className="absolute inset-0" style={{ zIndex: 20 }}>
                 <EventBlocks events={byDay[i].filter(e => !e.allDay)} date={d} onEdit={onEdit} calendars={calendars} />
               </div>
             </div>
@@ -515,7 +519,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
   );
 };
 
-const MonthView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus }) => {
+const MonthView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, onToggleTaskStatus, onEditTask }) => {
   const first = new Date(date.getFullYear(), date.getMonth(), 1);
   const start = getWeekStart(first, true);
   const days = [...Array(42)].map((_, i) => addDays(start, i));
@@ -557,14 +561,14 @@ const MonthView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks
           const evs = grouped.get(key)?.events || [];
           const tks = grouped.get(key)?.tasks || [];
           return (
-            <div key={idx} className={`bg-white min-h-[140px] hover:bg-gray-50 transition ${sameDay(d, new Date()) ? "outline outline-2 outline-[#1a73e8] -outline-offset-2" : ""}`}>
+            <div key={idx} className={`bg-white min-h-[160px] hover:bg-gray-50 transition ${sameDay(d, new Date()) ? "outline outline-2 outline-[#1a73e8] -outline-offset-2" : ""}`}>
               <div className="flex items-center justify-between px-2 py-1">
                 <button data-testid="month-date" onClick={() => onCreate({ start: d, end: d, allDay: true })} className={`text-xs font-medium px-1.5 py-0.5 rounded ${other ? "text-gray-400" : "text-gray-700"}`}>{d.getDate()}</button>
               </div>
               <div className="px-2 pb-2 space-y-1">
                 {evs.slice(0, 3).map((e) => (
                   <button key={e.id} onClick={() => onEdit(e)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left">
-                    <span className="inline-block w-2 h-2 rounded" style={{ background: getCalendarColor(e.calendarId, calendars) }} />
+                    <span className="inline-block w-2 h-2 rounded" style={{ background: getEventColor(e, calendars) }} />
                     <span className="truncate text-[12px]">{e.title}</span>
                   </button>
                 ))}
@@ -575,11 +579,9 @@ const MonthView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks
                 {showTasks && (
                   <div className="mt-1 space-y-1">
                     {tks.slice(0, 2).map((t) => (
-                      <button key={t.id} onClick={() => onToggleTaskStatus(t.id)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left">
-                        <span className={`inline-flex items-center justify-center w-4 h-4 rounded-full text-white ${t.status === 'completed' ? 'bg-green-600' : t.status === 'pending' ? 'bg-amber-500' : 'bg-gray-400'}`}>
-                          {t.status === 'completed' ? <Icon name="check" className="w-3 h-3" /> : <Icon name="dot" className="w-2 h-2" />}
-                        </span>
-                        <span className={`truncate text-[12px] ${t.status === 'completed' ? 'line-through text-gray-400' : 'text-gray-800'}`}>{t.title}</span>
+                      <button key={t.id} onClick={() => onEditTask && onEditTask(t)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left">
+                        <span className="inline-block w-2 h-2 rounded" style={{ background: t.color || "#f59e0b" }} />
+                        <span className="truncate text-[12px]">{t.title}</span>
                       </button>
                     ))}
                     {tks.length > 2 && (
@@ -596,12 +598,12 @@ const MonthView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks
   );
 };
 
-const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = [], onToggleTaskStatus }) => {
+const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = [], onToggleTaskStatus, onEditTask }) => {
   return (
     <div className="min-h-[38px] flex flex-col gap-1">
       <div className="flex flex-wrap gap-1">
         {events.map((e) => (
-          <button key={e.id} onClick={() => onEdit(e)} className="px-2 py-0.5 rounded text-[12px] text-white shadow-sm hover:brightness-95" style={{ background: getCalendarColor(e.calendarId, calendars) }}>{e.title}</button>
+          <button key={e.id} onClick={() => onEdit(e)} className="px-2 py-0.5 rounded text-[12px] text-white shadow-sm hover:brightness-95" style={{ background: getEventColor(e, calendars) }}>{e.title}</button>
         ))}
       </div>
       {timedEvents.length > 0 && (
@@ -610,7 +612,7 @@ const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = 
             const s = parseISOish(e.start);
             return (
               <button key={`t-${e.id}`} onClick={() => onEdit(e)} className="px-1.5 py-0.5 rounded bg-gray-50 hover:bg-gray-100 text-[11px] text-gray-700 inline-flex items-center gap-1">
-                <span className="inline-block w-2 h-2 rounded" style={{ background: getCalendarColor(e.calendarId, calendars) }} />
+                <span className="inline-block w-2 h-2 rounded" style={{ background: getEventColor(e, calendars) }} />
                 <span>{toTimeLabel(s)} {e.title}</span>
               </button>
             );
@@ -624,10 +626,8 @@ const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = 
       {tasks.length > 0 && (
         <div className="flex flex-wrap gap-1 mt-1">
           {tasks.slice(0, 3).map((t) => (
-            <button key={t.id} onClick={() => onToggleTaskStatus && onToggleTaskStatus(t.id)} className={`px-2 py-0.5 rounded text-[11px] inline-flex items-center gap-1 border ${t.status === 'completed' ? 'bg-green-50 border-green-300 text-green-700 line-through' : t.status === 'pending' ? 'bg-amber-50 border-amber-300 text-amber-700' : 'bg-gray-50 border-gray-300 text-gray-700'}`}>
-              <span className={`inline-flex items-center justify-center w-3.5 h-3.5 rounded-full text-white ${t.status === 'completed' ? 'bg-green-600' : t.status === 'pending' ? 'bg-amber-500' : 'bg-gray-400'}`}>
-                {t.status === 'completed' ? <Icon name="check" className="w-3 h-3" /> : <Icon name="dot" className="w-2 h-2" />}
-              </span>
+            <button key={t.id} onClick={() => onEditTask && onEditTask(t)} className={`px-2 py-0.5 rounded text-[11px] inline-flex items-center gap-2 border bg-white hover:bg-gray-50 text-gray-800`}>
+              <span className="inline-block w-2 h-2 rounded" style={{ background: t.color || "#f59e0b" }} />
               <span className="truncate">{t.title}</span>
             </button>
           ))}
@@ -654,10 +654,11 @@ const GridClickCatcher = ({ date, onCreate }) => {
     onCreate({ start, end, allDay: false });
   };
 
-  return <div ref={ref} className="absolute inset-0" onDoubleClick={onDoubleClick} style={{ zIndex: 10 }} />;
+  return <div ref={ref} className="absolute inset-0" onDoubleClick={onDoubleClick} />;
 };
 
 const getCalendarColor = (calendarId, calendars) => calendars.find(c => c.id === calendarId)?.color || GC_COLORS.primary;
+const getEventColor = (e, calendars) => e.color || getCalendarColor(e.calendarId, calendars);
 
 const EventBlocks = ({ events, date, onEdit, calendars }) => {
   // Simple stacking without collision resolution beyond basic offset
@@ -675,7 +676,7 @@ const EventBlocks = ({ events, date, onEdit, calendars }) => {
             key={e.id}
             onClick={() => onEdit(e)}
             className="absolute right-2 left-2 text-left rounded-md shadow-sm text-white px-2 py-1 overflow-hidden hover:brightness-95"
-            style={{ top: `${minutesFromTop}%`, height: `${heightPct}%`, background: getCalendarColor(e.calendarId, calendars), transform: `translateX(${leftOffset}px)` }}
+            style={{ top: `${minutesFromTop}%`, height: `${heightPct}%`, background: getEventColor(e, calendars), transform: `translateX(${leftOffset}px)` }}
           >
             <div className="text-[12px] font-medium leading-tight">{e.title}</div>
             <div className="text-[10px] opacity-90">{toTimeRange(s, en)}</div>
@@ -697,12 +698,15 @@ const toTimeLabel = (d) => {
 const toTimeRange = (s, e) => `${toTimeLabel(s)} - ${toTimeLabel(e)}`;
 
 /********************** Event Modal **********************/
-export const EventModal = ({ open, onClose, onSave, initial, calendars }) => {
+export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete }) => {
   const [title, setTitle] = useState(initial?.title || "Untitled event");
   const [allDay, setAllDay] = useState(initial?.allDay || false);
   const [start, setStart] = useState(initial?.start ? toISO(parseISOish(initial.start)) : toISO(new Date()));
   const [end, setEnd] = useState(initial?.end ? toISO(parseISOish(initial.end)) : toISO(addDays(new Date(), 0)));
   const [calendarId, setCalendarId] = useState(initial?.calendarId || calendars[0]?.id);
+  const [color, setColor] = useState(initial?.color || "");
+  const [category, setCategory] = useState(initial?.category || "");
+  const [frequency, setFrequency] = useState(initial?.frequency || "none");
 
   useEffect(() => {
     if (!open) return;
@@ -713,6 +717,9 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars }) => {
     setStart(toISO(s));
     setEnd(toISO(e));
     setCalendarId(initial?.calendarId || calendars[0]?.id);
+    setColor(initial?.color || "");
+    setCategory(initial?.category || "");
+    setFrequency(initial?.frequency || "none");
   }, [open, initial, calendars]);
 
   if (!open) return null;
@@ -746,31 +753,155 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars }) => {
                 <input type="datetime-local" value={end} onChange={(e) => setEnd(e.target.value)} className="w-full border rounded px-2 py-1 text-sm" />
               </div>
             </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Calendar</div>
+                <select value={calendarId} onChange={(e) => setCalendarId(e.target.value)} className="w-full border rounded px-2 py-2 text-sm">
+                  {calendars.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Color (override)</div>
+                <input type="color" value={color || "#ffffff"} onChange={(e) => setColor(e.target.value)} className="w-full h-9 border rounded" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Category</div>
+                <input value={category} onChange={(e) => setCategory(e.target.value)} className="w-full border rounded px-2 py-1 text-sm" />
+              </div>
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Frequency</div>
+                <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className="w-full border rounded px-2 py-2 text-sm">
+                  <option value="none">None</option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between gap-2 sticky bottom-0 bg-white">
+            <button onClick={() => onDelete && initial?.id && onDelete(initial.id)} className="px-3 py-1.5 rounded text-red-600 hover:bg-red-50">Delete</button>
+            <div className="flex items-center gap-2">
+              <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Cancel</button>
+              <button
+                data-testid="save-event"
+                onClick={() => {
+                  const payload = {
+                    title: title?.trim() || "Untitled event",
+                    allDay,
+                    start: start,
+                    end: end,
+                    calendarId,
+                    color: color || undefined,
+                    category: category || undefined,
+                    frequency,
+                  };
+                  onSave(payload);
+                }}
+                className="px-3 py-1.5 rounded bg-[#1a73e8] text-white hover:bg-[#1557b0]"
+              >Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/********************** Task Modal **********************/
+export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
+  const [title, setTitle] = useState(initial?.title || "Untitled task");
+  const [date, setDate] = useState(initial?.date ? toISO(parseISOish(initial.date)) : toISO(new Date()));
+  const [status, setStatus] = useState(initial?.status || "pending");
+  const [color, setColor] = useState(initial?.color || "#f59e0b");
+  const [category, setCategory] = useState(initial?.category || "");
+  const [frequency, setFrequency] = useState(initial?.frequency || "none");
+
+  useEffect(() => {
+    if (!open) return;
+    setTitle(initial?.title || "Untitled task");
+    const d = initial?.date instanceof Date ? initial.date : initial?.date ? parseISOish(initial.date) : new Date();
+    setDate(toISO(d));
+    setStatus(initial?.status || "pending");
+    setColor(initial?.color || "#f59e0b");
+    setCategory(initial?.category || "");
+    setFrequency(initial?.frequency || "none");
+  }, [open, initial]);
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
+      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="w-full max-w-lg max-h-[80vh] overflow-y-auto bg-white rounded-xl shadow-xl overflow-hidden animate-[fadeIn_200ms_ease]">
+          <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+            <div className="text-[18px] font-semibold">Task details</div>
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">✕</button>
+          </div>
+          <div className="p-4 space-y-4">
             <div>
-              <div className="text-xs text-gray-500 mb-1">Calendar</div>
-              <select value={calendarId} onChange={(e) => setCalendarId(e.target.value)} className="w-full border rounded px-2 py-2 text-sm">
-                {calendars.map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
-                ))}
+              <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-[20px] font-medium outline-none" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Date & Time</div>
+                <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border rounded px-2 py-1 text-sm" />
+              </div>
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Status</div>
+                <select value={status} onChange={(e) => setStatus(e.target.value)} className="w-full border rounded px-2 py-2 text-sm">
+                  <option value="pending">Pending</option>
+                  <option value="completed">Completed</option>
+                  <option value="incomplete">Incomplete</option>
+                </select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Color</div>
+                <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="w-full h-9 border rounded" />
+              </div>
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Category</div>
+                <input value={category} onChange={(e) => setCategory(e.target.value)} className="w-full border rounded px-2 py-1 text-sm" />
+              </div>
+            </div>
+            <div>
+              <div className="text-xs text-gray-500 mb-1">Frequency</div>
+              <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className="w-full border rounded px-2 py-2 text-sm">
+                <option value="none">None</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
               </select>
             </div>
           </div>
-          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2 sticky bottom-0 bg-white">
-            <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Cancel</button>
-            <button
-              data-testid="save-event"
-              onClick={() => {
-                const payload = {
-                  title: title?.trim() || "Untitled event",
-                  allDay,
-                  start: start,
-                  end: end,
-                  calendarId,
-                };
-                onSave(payload);
-              }}
-              className="px-3 py-1.5 rounded bg-[#1a73e8] text-white hover:bg-[#1557b0]"
-            >Save</button>
+          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between gap-2 sticky bottom-0 bg-white">
+            <button onClick={() => onDelete && initial?.id && onDelete(initial.id)} className="px-3 py-1.5 rounded text-red-600 hover:bg-red-50">Delete</button>
+            <div className="flex items-center gap-2">
+              <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Cancel</button>
+              <button
+                onClick={() => {
+                  const payload = {
+                    title: title?.trim() || "Untitled task",
+                    date: date,
+                    status,
+                    color,
+                    category: category || undefined,
+                    frequency,
+                  };
+                  onSave(payload);
+                }}
+                className="px-3 py-1.5 rounded bg-[#1a73e8] text-white hover:bg-[#1557b0]"
+              >Save</button>
+            </div>
           </div>
         </div>
       </div>
@@ -801,6 +932,16 @@ export const useCalendarState = () => {
     setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, ...patch } : e)));
   };
   const removeEvent = (id) => setEvents((prev) => prev.filter((e) => e.id !== id));
+
+  const addTask = (payload) => {
+    const t = { id: makeTaskId(), ...payload };
+    setTasks((prev) => [...prev, t]);
+  };
+  const updateTask = (id, patch) => {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, ...patch } : t)));
+  };
+  const removeTask = (id) => setTasks((prev) => prev.filter((t) => t.id !== id));
+
   const updateTaskStatus = (id) => {
     setTasks((prev) => prev.map((t) => {
       if (t.id !== id) return t;
@@ -810,7 +951,7 @@ export const useCalendarState = () => {
       return { ...t, status: next };
     }));
   };
-  return { calendars, setCalendars, events, setEvents, addEvent, updateEvent, removeEvent, tasks, setTasks, updateTaskStatus };
+  return { calendars, setCalendars, events, setEvents, addEvent, updateEvent, removeEvent, tasks, setTasks, addTask, updateTask, removeTask, updateTaskStatus };
 };
 
 export const rangeTitle = (view, date) => {

@@ -2,19 +2,22 @@ import React, { useMemo, useState } from "react";
 import "./index.css";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import { CalendarView, EventModal, LeftSidebar, TopBar, rangeTitle, useCalendarState } from "./components.jss";
+import { CalendarView, EventModal, LeftSidebar, TopBar, TaskModal, rangeTitle, useCalendarState } from "./components.jss";
 
 function App() {
   const [view, setView] = useState("week");
   const [date, setDate] = useState(new Date());
   const title = useMemo(() => rangeTitle(view, date), [view, date]);
 
-  const { calendars, setCalendars, events, addEvent, updateEvent, tasks, setTasks, updateTaskStatus } = useCalendarState();
+  const { calendars, setCalendars, events, addEvent, updateEvent, removeEvent, tasks, updateTask, removeTask } = useCalendarState();
 
   const [showTasks, setShowTasks] = useState(true);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalInitial, setModalInitial] = useState(null);
+
+  const [taskModalOpen, setTaskModalOpen] = useState(false);
+  const [taskModalInitial, setTaskModalInitial] = useState(null);
 
   const handleCreate = ({ start, end, allDay }) => {
     setModalInitial({ start, end, allDay });
@@ -26,6 +29,11 @@ function App() {
     setModalOpen(true);
   };
 
+  const handleEditTask = (task) => {
+    setTaskModalInitial(task);
+    setTaskModalOpen(true);
+  };
+
   const onSave = (payload) => {
     if (modalInitial?.id) {
       updateEvent(modalInitial.id, payload);
@@ -33,6 +41,23 @@ function App() {
       addEvent(payload);
     }
     setModalOpen(false);
+  };
+
+  const onDeleteEvent = (id) => {
+    removeEvent(id);
+    setModalOpen(false);
+  };
+
+  const onSaveTask = (payload) => {
+    if (taskModalInitial?.id) {
+      updateTask(taskModalInitial.id, payload);
+    }
+    setTaskModalOpen(false);
+  };
+
+  const onDeleteTask = (id) => {
+    removeTask(id);
+    setTaskModalOpen(false);
   };
 
   const onPrev = () => {
@@ -71,12 +96,13 @@ function App() {
               onEdit={handleEdit}
               tasks={tasks}
               showTasks={showTasks}
-              onToggleTaskStatus={updateTaskStatus}
+              onEditTask={handleEditTask}
             />
           </main>
         </div>
 
-        <EventModal open={modalOpen} onClose={() => setModalOpen(false)} onSave={onSave} initial={modalInitial} calendars={calendars} />
+        <EventModal open={modalOpen} onClose={() => setModalOpen(false)} onSave={onSave} initial={modalInitial} calendars={calendars} onDelete={onDeleteEvent} />
+        <TaskModal open={taskModalOpen} onClose={() => setTaskModalOpen(false)} initial={taskModalInitial} onSave={onSaveTask} onDelete={onDeleteTask} />
       </div>
     </BrowserRouter>
   );
