@@ -357,13 +357,13 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
           </div>
         </div>
 
-        &lt;div className="hidden md:flex items-center gap-1"&gt;
-          &lt;button className="p-2 rounded hover:bg-gray-100" aria-label="Help"&gt;&lt;Icon name="help" /&gt;&lt;/button&gt;
-          &lt;button className="p-2 rounded hover:bg-gray-100" aria-label="Settings"&gt;&lt;Icon name="settings" /&gt;&lt;/button&gt;
-          &lt;button className="p-2 rounded hover:bg-gray-100" aria-label="Apps"&gt;&lt;Icon name="apps" /&gt;&lt;/button&gt;
-          &lt;div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 grid place-items-center text-white text-xs font-bold ml-1"&gt;JD&lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
+        <div className="hidden md:flex items-center gap-1">
+          <button className="p-2 rounded hover:bg-gray-100" aria-label="Help"><Icon name="help" /></button>
+          <button className="p-2 rounded hover:bg-gray-100" aria-label="Settings"><Icon name="settings" /></button>
+          <button className="p-2 rounded hover:bg-gray-100" aria-label="Apps"><Icon name="apps" /></button>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 grid place-items-center text-white text-xs font-bold ml-1">JD</div>
+        </div>
+      </div>
 
       &lt;div className="md:hidden flex items-center gap-2 px-4 pb-3"&gt;
         &lt;button onClick={onPrev} className="p-1.5 rounded hover:bg-gray-100" aria-label="Previous"&gt;&lt;Icon name="chev-left" /&gt;&lt;/button&gt;
