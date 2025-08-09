@@ -1,45 +1,41 @@
-// Load configuration from environment or config file
-const path = require('path');
-
-// Environment variable overrides
-const config = {
-  disableHotReload: process.env.DISABLE_HOT_RELOAD === 'true',
-};
+/* craco.config.js
+   Extend CRA webpack to support .jss files as JavaScript modules
+*/
 
 module.exports = {
   webpack: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
     configure: (webpackConfig) => {
-      
-      // Disable hot reload completely if environment variable is set
-      if (config.disableHotReload) {
-        // Remove hot reload related plugins
-        webpackConfig.plugins = webpackConfig.plugins.filter(plugin => {
-          return !(plugin.constructor.name === 'HotModuleReplacementPlugin');
-        });
-        
-        // Disable watch mode
-        webpackConfig.watch = false;
-        webpackConfig.watchOptions = {
-          ignored: /.*/, // Ignore all files
-        };
-      } else {
-        // Add ignored patterns to reduce watched directories
-        webpackConfig.watchOptions = {
-          ...webpackConfig.watchOptions,
-          ignored: [
-            '**/node_modules/**',
-            '**/.git/**',
-            '**/build/**',
-            '**/dist/**',
-            '**/coverage/**',
-            '**/public/**',
-          ],
-        };
+      // Ensure .jss is a resolvable extension
+      if (webpackConfig.resolve && webpackConfig.resolve.extensions) {
+        if (!webpackConfig.resolve.extensions.includes(".jss")) {
+          webpackConfig.resolve.extensions.push(".jss");
+        }
       }
-      
+
+      // Find babel-loader options from existing rule
+      const oneOfRule = webpackConfig.module.rules.find((r) => Array.isArray(r.oneOf));
+      if (oneOfRule) {
+        const babelRule = oneOfRule.oneOf.find(
+          (r) => r.loader && r.loader.includes("babel-loader") && r.test && r.test.toString().includes("jsx")
+        );
+
+        const babelOptions = babelRule ? babelRule.options : {};
+
+        // Insert our .jss rule before asset/resource fallback
+        const assetRuleIndex = oneOfRule.oneOf.findIndex((r) => r.type === "asset/resource");
+        const jssRule = {
+          test: /\.jss$/,
+          include: /src/,
+          loader: require.resolve("babel-loader"),
+          options: babelOptions,
+        };
+
+        if (assetRuleIndex !== -1) {
+          oneOfRule.oneOf.splice(assetRuleIndex, 0, jssRule);
+        } else {
+          oneOfRule.oneOf.push(jssRule);
+        }
+      }
       return webpackConfig;
     },
   },
