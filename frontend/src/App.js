@@ -58,7 +58,7 @@ function App() {
 
         <EventModal open={modalOpen} onClose={() => setModalOpen(false)} onSave={onSave} initial={modalInitial} calendars={calendars} />
       </div>
-    &lt;/BrowserRouter&gt;
+    </BrowserRouter>
   );
 }
 
