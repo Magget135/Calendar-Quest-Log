@@ -379,17 +379,17 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
   );
 };
 
-const ViewToggle = ({ view, setView }) =&gt; {
+const ViewToggle = ({ view, setView }) => {
   const opt = ["Day", "Week", "Month", "Schedule"]; // schedule is placeholder
   return (
-    &lt;div className="inline-flex rounded-md border border-gray-200 overflow-hidden" role="tablist"&gt;
-      {opt.map((o) =&gt; {
+    <div className="inline-flex rounded-md border border-gray-200 overflow-hidden" role="tablist">
+      {opt.map((o) => {
         const active = view === o.toLowerCase();
         return (
-          &lt;button key={o} onClick={() =&gt; setView(o.toLowerCase())} className={`px-3 py-1.5 text-sm ${active ? "bg-blue-50 text-blue-700" : "bg-white text-gray-700 hover:bg-gray-50"}`}&gt;{o}&lt;/button&gt;
+          <button key={o} onClick={() => setView(o.toLowerCase())} className={`px-3 py-1.5 text-sm ${active ? "bg-blue-50 text-blue-700" : "bg-white text-gray-700 hover:bg-gray-50"}`}>{o}</button>
         );
       })}
-    &lt;/div&gt;
+    </div>
   );
 };
 
