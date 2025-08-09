@@ -7,7 +7,7 @@ import { CalendarView, EventModal, LeftSidebar, TopBar, rangeTitle, useCalendarS
 function App() {
   const [view, setView] = useState("week");
   const [date, setDate] = useState(new Date());
-  const title = useMemo(() =&gt; rangeTitle(view, date), [view, date]);
+  const title = useMemo(() => rangeTitle(view, date), [view, date]);
 
   const { calendars, setCalendars, events, addEvent, updateEvent } = useCalendarState();
 
