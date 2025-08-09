@@ -251,9 +251,9 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
   switch (name) {
     case "menu":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
+        </svg>
       );
     case "chev-left":
       return (
