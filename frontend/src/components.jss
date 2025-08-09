@@ -427,7 +427,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit }) => {
         <div className="bg-white" />
         {days.map((d, i) => (
           <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
-            <AllDayRow date={d} events={byDay[i].filter(e => e.allDay)} onEdit={onEdit} />
+            <AllDayRow date={d} events={byDay[i].filter(e => e.allDay)} timedEvents={byDay[i].filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} />
           </div>
         ))}
       </div>
