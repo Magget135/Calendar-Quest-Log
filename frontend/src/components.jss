@@ -1110,14 +1110,6 @@ export const useCalendarState = () => {
 };
 
 export const rangeTitle = (view, date) => {
-  if (view === "day") return date.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
-  if (view === "week") {
-    const s = getWeekStart(date, true);
-    const e = addDays(s, 6);
-    const sFmt = s.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-    const eFmt = e.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-    return `${sFmt} – ${eFmt}`;
-  }
-  if (view === "month") return date.toLocaleDateString(undefined, { month: "long", year: "numeric" });
-  return "";
+  // Always show just Month Year similar to Google Calendar when in Week/Day as requested
+  return date.toLocaleDateString(undefined, { month: "long", year: "numeric" });
 };
