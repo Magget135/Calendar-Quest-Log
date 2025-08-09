@@ -489,7 +489,9 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
                   <div key={h} className="h-16 border-t border-gray-100" />
                 ))}
               </div>
-              <NowIndicator date={d} />
+              <div className="absolute inset-0">
+                <NowIndicator date={d} />
+              </div>
               <GridClickCatcher date={d} onCreate={onCreate} />
               <div className="absolute inset-0 pointer-events-none">
                 <EventBlocks events={byDay[i].filter(e => !e.allDay)} date={d} onEdit={onEdit} calendars={calendars} />
