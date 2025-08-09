@@ -269,10 +269,10 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
       );
     case "search":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;circle cx="11" cy="11" r="7" strokeLinecap="round" /&gt;
-          &lt;path d="M20 20l-3.5-3.5" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <circle cx="11" cy="11" r="7" strokeLinecap="round" />
+          <path d="M20 20l-3.5-3.5" />
+        </svg>
       );
     case "help":
       return (
