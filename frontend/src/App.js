@@ -53,7 +53,7 @@ function App() {
           <LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} />
           <main className="flex-1">
             <CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} />
-          &lt;/main&gt;
+          </main>
         &lt;/div&gt;
 
         <EventModal open={modalOpen} onClose={() => setModalOpen(false)} onSave={onSave} initial={modalInitial} calendars={calendars} />
