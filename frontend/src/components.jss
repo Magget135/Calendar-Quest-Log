@@ -304,9 +304,9 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
       );
     case "plus":
       return (
-        &lt;svg viewBox="0 0 24 24" {...props}&gt;
-          &lt;path d="M12 5v14M5 12h14" strokeLinecap="round" /&gt;
-        &lt;/svg&gt;
+        <svg viewBox="0 0 24 24" {...props}>
+          <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+        </svg>
       );
     case "check":
       return (
