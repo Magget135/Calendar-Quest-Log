@@ -148,7 +148,7 @@ const Icon = ({ name, className = "w-5 h-5" }) => {
       return (
         <svg viewBox="0 0 24 24" {...props}>
           <path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" />
-          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06c.46-.46.6-1.14.33-1.82a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09c.7 0 1.31-.4 1.58-1 .27-.6.13-1.28-.33-1.74l-.06-.06a2 2 0 012.83-2.83l.06.06c.46.46 1.14.6 1.82.33.6-.27 1-.88 1-1.58V3a2 2 0 014 0v.09c0 .7.4 1.31 1 1.58.68.27 1.36.13 1.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06c-.46.46-.6 1.14-.33 1.82.27.6.88 1 1.58 1H21a2 2 0 010 4h-.09c-.7 0-1.31.4-1.51 1z" />
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06c.46-.46.6-1.14.33-1.82.27-.6.88-1 1.58-1H21a2 2 0 010 4h-.09c-.7 0-1.31.4-1.51 1z" />
         </svg>
       );
     case "apps":
@@ -595,8 +595,8 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars }) => {
   return (
     <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="absolute inset-0 flex items-start justify-center p-4">
-        <div className="w-full max-w-lg bg-white rounded-xl shadow-xl overflow-hidden animate-[fadeIn_200ms_ease]">
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="w-full max-w-lg max-h-[80vh] overflow-y-auto bg-white rounded-xl shadow-xl overflow-hidden animate-[fadeIn_200ms_ease]">
           <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
             <div className="text-[18px] font-semibold">Event details</div>
             <button onClick={onClose} className="text-gray-500 hover:text-gray-700">✕</button>
@@ -630,7 +630,7 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars }) => {
               </select>
             </div>
           </div>
-          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2">
+          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2 sticky bottom-0 bg-white">
             <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Cancel</button>
             <button
               data-testid="save-event"
