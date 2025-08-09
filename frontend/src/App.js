@@ -36,7 +36,7 @@ function App() {
   const onPrev = () => {
     if (view === "day") setDate((d) => new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1));
     else if (view === "week") setDate((d) => new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7));
-    else if (view === "month") setDate((d) =&gt; new Date(d.getFullYear(), d.getMonth() - 1, 1));
+    else if (view === "month") setDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1));
   };
   const onNext = () =&gt; {
     if (view === "day") setDate((d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1));
