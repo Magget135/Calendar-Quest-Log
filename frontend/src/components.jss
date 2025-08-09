@@ -326,29 +326,29 @@ const Icon = ({ name, className = "w-5 h-5" }) =&gt; {
 };
 
 /********************** Top Bar **********************/
-export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) =&gt; {
+export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
   return (
-    &lt;div className="w-full border-b border-gray-200 bg-white sticky top-0 z-40"&gt;
-      &lt;div className="flex items-center justify-between px-4 sm:px-6 h-14"&gt;
-        &lt;div className="flex items-center gap-3"&gt;
-          &lt;button className="p-2 rounded hover:bg-gray-100" aria-label="Menu"&gt;
-            &lt;Icon name="menu" /&gt;
-          &lt;/button&gt;
-          &lt;div className="flex items-center gap-2 select-none"&gt;
-            &lt;div className="w-6 h-6 rounded-md bg-[#1a73e8] grid place-items-center text-white font-bold"&gt;31&lt;/div&gt;
-            &lt;div className="text-[18px] font-medium tracking-tight"&gt;Calendar&lt;/div&gt;
-          &lt;/div&gt;
-          &lt;div className="hidden md:flex items-center gap-2 ml-4"&gt;
-            &lt;button onClick={onPrev} className="p-1.5 rounded hover:bg-gray-100" aria-label="Previous"&gt;
-              &lt;Icon name="chev-left" /&gt;
-            &lt;/button&gt;
-            &lt;button onClick={onNext} className="p-1.5 rounded hover:bg-gray-100" aria-label="Next"&gt;
-              &lt;Icon name="chev-right" /&gt;
-            &lt;/button&gt;
-            &lt;button onClick={onToday} className="ml-2 px-3 py-1.5 border rounded text-sm hover:bg-gray-50"&gt;Today&lt;/button&gt;
-            &lt;div className="ml-3 text-[20px] font-semibold tracking-tight" data-testid="current-range"&gt;{title}&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+    <div className="w-full border-b border-gray-200 bg-white sticky top-0 z-40">
+      <div className="flex items-center justify-between px-4 sm:px-6 h-14">
+        <div className="flex items-center gap-3">
+          <button className="p-2 rounded hover:bg-gray-100" aria-label="Menu">
+            <Icon name="menu" />
+          </button>
+          <div className="flex items-center gap-2 select-none">
+            <div className="w-6 h-6 rounded-md bg-[#1a73e8] grid place-items-center text-white font-bold">31</div>
+            <div className="text-[18px] font-medium tracking-tight">Calendar</div>
+          </div>
+          <div className="hidden md:flex items-center gap-2 ml-4">
+            <button onClick={onPrev} className="p-1.5 rounded hover:bg-gray-100" aria-label="Previous">
+              <Icon name="chev-left" />
+            </button>
+            <button onClick={onNext} className="p-1.5 rounded hover:bg-gray-100" aria-label="Next">
+              <Icon name="chev-right" />
+            </button>
+            <button onClick={onToday} className="ml-2 px-3 py-1.5 border rounded text-sm hover:bg-gray-50">Today</button>
+            <div className="ml-3 text-[20px] font-semibold tracking-tight" data-testid="current-range">{title}</div>
+          </div>
+        </div>
 
         &lt;div className="flex-1 max-w-[520px] mx-4 hidden md:flex items-center"&gt;
           &lt;div className="relative flex-1"&gt;
