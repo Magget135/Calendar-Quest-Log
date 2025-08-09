@@ -110,7 +110,7 @@ const seedEvents = [
 
 // Seed tasks (separate from events)
 let taskIdCounter = 5000;
-const makeTaskId = () =&gt; `task-${taskIdCounter++}`;
+const makeTaskId = () => `task-${taskIdCounter++}`;
 const seedTasks = [
   { id: makeTaskId(), title: "Pay bills", date: toISO(addDays(weekStart, 1)), status: "pending" },
   { id: makeTaskId(), title: "Draft PRD", date: toISO(addDays(weekStart, 2)), status: "incomplete" },
