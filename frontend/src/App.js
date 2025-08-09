@@ -51,7 +51,7 @@ function App() {
         <TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} />
         <div className="flex">
           <LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} />
-          &lt;main className="flex-1"&gt;
+          <main className="flex-1">
             &lt;CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} /&gt;
           &lt;/main&gt;
         &lt;/div&gt;
