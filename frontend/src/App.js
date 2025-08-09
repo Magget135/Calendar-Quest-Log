@@ -50,7 +50,7 @@ function App() {
       <div className="min-h-screen bg-white text-[#1f1f1f]">
         <TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} />
         <div className="flex">
-          &lt;LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} /&gt;
+          <LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} />
           &lt;main className="flex-1"&gt;
             &lt;CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} /&gt;
           &lt;/main&gt;
