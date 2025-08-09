@@ -52,7 +52,7 @@ function App() {
         <div className="flex">
           <LeftSidebar date={date} onDateChange={setDate} onCreate={handleCreate} calendars={calendars} setCalendars={setCalendars} />
           <main className="flex-1">
-            &lt;CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} /&gt;
+            <CalendarView view={view} date={date} events={events} calendars={calendars} onCreate={handleCreate} onEdit={handleEdit} />
           &lt;/main&gt;
         &lt;/div&gt;
 
