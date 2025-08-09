@@ -14,7 +14,7 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalInitial, setModalInitial] = useState(null);
 
-  const handleCreate = ({ start, end, allDay }) =&gt; {
+  const handleCreate = ({ start, end, allDay }) => {
     setModalInitial({ start, end, allDay });
     setModalOpen(true);
   };
