@@ -104,6 +104,7 @@ function App() {
         <div className="flex">
           <LeftNav collapsed={leftNavCollapsed} onToggle={() => setLeftNavCollapsed(v => !v)} />
           <LeftSidebar collapsed={leftSidebarCollapsed} onToggle={() => setLeftSidebarCollapsed(v => !v)}
+
             date={date}
             onDateChange={setDate}
             onCreate={handleCreate}
