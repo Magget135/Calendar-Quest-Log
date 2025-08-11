@@ -441,7 +441,7 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
 };
 
 /********************** Left Sidebar **********************/
-export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalendars, showTasks, setShowTasks }) => {
+export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalendars, showTasks, setShowTasks, collapsed = false, onToggle }) => {
   const [legendOpen, setLegendOpen] = useState(false);
   const [presetsOpen, setPresetsOpen] = useState(false);
   return (
