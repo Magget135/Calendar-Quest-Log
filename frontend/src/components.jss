@@ -410,7 +410,7 @@ const ViewToggle = ({ view, setView }) => {
 };
 
 /********************** Left Nav (new) **********************/
-export const LeftNav = () => {
+export const LeftNav = ({ collapsed = false, onToggle }) => {
   const items = [
     { label: "ActiveQuests", path: "/active-quests" },
     { label: "CompletedQuests", path: "/completed-quests" },
