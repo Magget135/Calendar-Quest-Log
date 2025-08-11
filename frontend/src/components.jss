@@ -476,7 +476,8 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
       </div>
       )}
 
-      <div className="px-3 pb-4">
+      {!collapsed && (
+        <div className="px-3 pb-4">
         <div className="flex items-center justify-between mb-2">
           <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">My calendars</div>
           <button className="text-xs underline text-gray-600 hover:text-black" onClick={() => setPresetsOpen(true)}>Manage presets</button>
