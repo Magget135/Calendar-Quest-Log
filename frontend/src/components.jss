@@ -427,6 +427,11 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
   return (
     <aside className={`relative shrink-0 border-r border-gray-200 bg-white hidden md:block transition-all duration-200 ${collapsed ? "w-[40px]" : "w-[200px]"}`}>
       <div className="p-4 space-y-2">
+      {/* Collapse toggle button */}
+      <button onClick={onToggle} aria-label="Toggle LeftNav" className="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full border bg-white text-gray-600 hover:bg-gray-50 grid place-items-center shadow">
+        <span className="transform">{collapsed ? "›" : "‹"}</span>
+      </button>
+
         {items.map((item) => {
           const active = location.pathname === item.path;
           return (
