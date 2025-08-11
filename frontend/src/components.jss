@@ -439,7 +439,6 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
             </Link>
           );
         })}
-              {collapsed ? item.label.charAt(0) : item.label}
 
       </div>
     </aside>
