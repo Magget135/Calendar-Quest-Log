@@ -435,8 +435,10 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
     >
       <div className={`space-y-2 ${collapsed ? "p-2" : "p-4"}`}>
       {/* Collapse toggle button */}
-      <button onClick={onToggle} aria-label="Toggle LeftNav" className="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full border bg-white text-gray-600 hover:bg-gray-50 grid place-items-center shadow">
-        <span className="transform">{collapsed ? "›" : "‹"}</span>
+      <button onClick={onToggle} aria-label="Toggle LeftNav" className="absolute -right-3 top-4 z-20 w-6 h-6 rounded-full border bg-white text-gray-600 hover:bg-gray-50 grid place-items-center shadow">
+        <svg viewBox="0 0 24 24" className={`w-4 h-4 transition-transform ${collapsed ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </button>
         {items.map((item) => {
           const active = location.pathname === item.path;
