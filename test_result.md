@@ -149,7 +149,7 @@
 ##         -comment: "RE-TESTING COMPLETED - BOTH CRITICAL ISSUES FIXED! ✅ NOW INDICATOR: Red horizontal line with red dot is now VISIBLE and working perfectly in both Week and Day views. The indicator appears at the correct time position and updates properly. ✅ DOUBLE-CLICK FUNCTIONALITY: Double-clicking in the time grid successfully opens the Event modal with proper time pre-filled. ✅ EVENTS VISIBILITY: All events remain visible and properly positioned in calendar views. ✅ MONTH/DAY/WEEK TASK RENDERING: Tasks are visible in Month view with proper status indicators and interactive status cycling works. ✅ LAYERING: All layering changes work correctly - now indicator appears above grid lines and below events as expected. COMPREHENSIVE SUCCESS: Both previously failing issues are now resolved. Calendar functionality is working at 100% with all core features operational."
 ##         -working: true
 ##         -agent: "main"
-##         -comment: "UI tweaks requested: 1) Ensure arrow toggle buttons remain visible, aligned, and minimal; swap text glyphs for chevron icons. 2) When the left sidebar is collapsed, keep a minimal Create button visible. 3) Add a Calendar button in the TopBar that appears on any non-calendar route to navigate back to '/'. Please re-test alignment, visibility, and navigation."
+##         -comment: "UI updates: 1) Move Calendar button into LeftNav as the first item (above ActiveQuests). 2) Collapsed LeftNav now shows icons for each section instead of first letters. 3) Remove plus icon from Create buttons (expanded sidebar keeps text-only Create; collapsed sidebar no longer shows a separate create icon). Please re-test alignment, visibility, and navigation."
 ## metadata:
 ##   created_by: "main_agent"
 ##   version: "1.0"
