@@ -174,6 +174,20 @@ export const EVENT_COLORS = [
   "#f6c026", "#0b8043", "#3f51b5", "#039be5", "#616161"
 ];
 
+// Minimal aesthetic palette for events (user-selectable)
+const EVENT_COLOR_PALETTE = [
+  // neutrals
+  "#111827", "#374151", "#6B7280", "#9CA3AF", "#D1D5DB",
+  // warms
+  "#EF4444", "#F97316", "#F59E0B", "#EAB308",
+  // greens/teals
+  "#84CC16", "#22C55E", "#10B981", "#14B8A6",
+  // cyans/blues/indigo
+  "#06B6D4", "#0EA5E9", "#3B82F6", "#6366F1",
+  // violets/fuchsia/pinks
+  "#8B5CF6", "#A855F7", "#D946EF", "#EC4899", "#F43F5E",
+];
+
 /********************** Mock Data **********************/
 const today = new Date();
 const weekStart = getWeekStart(today, true);
@@ -937,7 +951,6 @@ const toTimeLabel = (d) => {
 };
 
 const toTimeRange = (s, e) => `${toTimeLabel(s)} - ${toTimeLabel(e)}`;
-
 const timeBadge = (d) => {
   if (!d) return "";
   const h = d.getHours();
@@ -958,6 +971,7 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete
   const [color, setColor] = useState(initial?.color || "");
   const [category, setCategory] = useState(initial?.category || "");
   const [frequency, setFrequency] = useState(initial?.frequency || "none");
+  const [showCustomColor, setShowCustomColor] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -971,6 +985,7 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete
     setColor(initial?.color || "");
     setCategory(initial?.category || "");
     setFrequency(initial?.frequency || "none");
+    setShowCustomColor(initial?.color ? !EVENT_COLOR_PALETTE.includes((initial?.color || "").toUpperCase()) : false);
   }, [open, initial, calendars]);
 
   if (!open) return null;
@@ -1014,8 +1029,19 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete
                 </select>
               </div>
               <div>
-                <div className="text-xs text-gray-500 mb-1">Color (override)</div>
-                <input type="color" value={color || "#ffffff"} onChange={(e) => setColor(e.target.value)} className="w-full h-9 border rounded" />
+                <div className="text-xs text-gray-500 mb-1">Color</div>
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" onClick={() => { setColor(""); setShowCustomColor(false); }} className={`px-2 py-1 text-xs rounded border ${!color ? "border-black" : "border-gray-300 hover:border-gray-400"}`}>None</button>
+                  {EVENT_COLOR_PALETTE.map((c) => (
+                    <button key={c} type="button" onClick={() => { setColor(c); setShowCustomColor(false); }} className={`w-6 h-6 rounded-full border ${color?.toUpperCase() === c ? "ring-2 ring-black border-black" : "border-gray-300 hover:border-gray-400"}`} style={{ background: c }} />
+                  ))}
+                  <button type="button" onClick={() => setShowCustomColor((v) => !v)} className={`px-2 py-1 text-xs rounded border ${showCustomColor ? "border-black" : "border-gray-300 hover:border-gray-400"}`}>Custom</button>
+                </div>
+                {showCustomColor && (
+                  <div className="mt-2">
+                    <input type="color" value={color || "#ffffff"} onChange={(e) => setColor(e.target.value)} className="w-full h-9 border rounded" />
+                  </div>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
