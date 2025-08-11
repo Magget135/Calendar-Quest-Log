@@ -478,6 +478,14 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
       </div>
       )}
 
+      {collapsed && (
+        <div className="p-2 flex flex-col items-center gap-2">
+          <button title="Create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-7 h-7 grid place-items-center rounded-full bg-black text-white hover:bg-gray-900 shadow" aria-label="Create">
+            <Icon name="plus" className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {!collapsed && (
         <div className="px-3 pb-4">
           <MiniMonth date={date} onDateChange={onDateChange} />
