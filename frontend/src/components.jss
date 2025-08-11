@@ -412,18 +412,7 @@ const ViewToggle = ({ view, setView }) => {
 
 /********************** Left Nav (new) **********************/
 export const LeftNav = ({ collapsed = false, onToggle }) => {
-  const items = [
-    { label: "ActiveQuests", path: "/active-quests" },
-    { label: "CompletedQuests", path: "/completed-quests" },
-    { label: "RewardStore", path: "/reward-store" },
-    { label: "RedeemRewards", path: "/redeem-rewards" },
-    { label: "RewardLog", path: "/reward-log" },
-    { label: "Recurringtasks", path: "/recurringtasks" },
-    { label: "Inventory", path: "/inventory" },
-    { label: "Rules", path: "/rules" },
-    { label: "Trash/Archive", path: "/trash-archive" },
-    { label: "Settings", path: "/settings" },
-  ];
+  const items = config;
   const calendarItem = { label: "Calendar", path: "/", icon: "calendar" };
   const config = [
     calendarItem,
