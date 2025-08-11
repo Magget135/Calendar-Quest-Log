@@ -507,6 +507,8 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
       </div>
 
       {presetsOpen && <PresetsModal onClose={() => setPresetsOpen(false)} onApplyToCalendar={(calendarId, color) => setCalendars(prev => prev.map(p => p.id === calendarId ? { ...p, color } : p))} calendars={calendars} />}
+      )}
+
     </aside>
   );
 };
