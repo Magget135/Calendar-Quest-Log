@@ -435,7 +435,7 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
           const active = location.pathname === item.path;
           return (
             <Link key={item.path} to={item.path} title={collapsed ? item.label : undefined} className={`block rounded font-medium text-sm border ${collapsed ? "px-0 py-2 text-center" : "px-3 py-2"} ${active ? "bg-black text-white border-black" : "text-black border-transparent hover:bg-gray-100"}`}>
-              {item.label}
+              {collapsed ? item.label.charAt(0) : item.label}
             </Link>
           );
         })}
