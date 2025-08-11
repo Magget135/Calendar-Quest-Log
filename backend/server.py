@@ -52,6 +52,29 @@ async def root():
     return {"message": "Hello World"}
 
 @api_router.post("/status", response_model=StatusCheck)
+@api_router.get("/presets", response_model=List[ColorPreset])
+async def list_presets():
+    docs = await db.color_presets.find().to_list(100)
+    return [ColorPreset(**doc) for doc in docs]
+
+@api_router.post("/presets", response_model=ColorPreset)
+async def create_preset(input: ColorPresetCreate):
+    data = input.dict()
+    # basic validate hex color
+    if not data["color"].startswith("#") or len(data["color"]) not in (4, 7):
+      raise HTTPException(status_code=400, detail="Invalid color format")
+    preset = ColorPreset(**data)
+    await db.color_presets.insert_one(preset.dict())
+    return preset
+
+@api_router.delete("/presets/{preset_id}")
+async def delete_preset(preset_id: str):
+    res = await db.color_presets.delete_one({"id": preset_id})
+    if res.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Preset not found")
+    return {"ok": True}
+
+
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.dict()
     status_obj = StatusCheck(**status_dict)
