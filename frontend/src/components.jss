@@ -1396,7 +1396,7 @@ const PresetsModal = ({ onClose, onApplyToCalendar, calendars }) => {
 };
 
 /********************** Placeholder Page **********************/
-export const SectionPage = ({ title }) => (
+export const SectionPage = ({ title }) => {
   <div className="p-8">
     <div className="text-2xl font-semibold mb-2">{title}</div>
     <div className="text-gray-600">This is a placeholder page for {title}. Content coming soon.</div>
