@@ -2,14 +2,14 @@ import React, { useMemo, useState } from "react";
 import "./index.css";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import { CalendarView, EventModal, LeftSidebar, TopBar, TaskModal, rangeTitle, useCalendarState } from "./components.jss";
+import { CalendarView, EventModal, LeftSidebar, TopBar, TaskModal, rangeTitle, useCalendarState, LeftNav, CreateChooser } from "./components.jss";
 
 function App() {
   const [view, setView] = useState("week");
   const [date, setDate] = useState(new Date());
   const title = useMemo(() => rangeTitle(view, date), [view, date]);
 
-  const { calendars, setCalendars, events, addEvent, updateEvent, removeEvent, tasks, updateTask, removeTask } = useCalendarState();
+  const { calendars, setCalendars, events, addEvent, updateEvent, removeEvent, tasks, addTask, updateTask, removeTask } = useCalendarState();
 
   const [showTasks, setShowTasks] = useState(true);
 
@@ -19,9 +19,30 @@ function App() {
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [taskModalInitial, setTaskModalInitial] = useState(null);
 
+  const [createChooserOpen, setCreateChooserOpen] = useState(false);
+  const [createContext, setCreateContext] = useState(null);
+
   const handleCreate = ({ start, end, allDay }) => {
-    setModalInitial({ start, end, allDay });
-    setModalOpen(true);
+    // Ask user what they want to create: Event or Task
+    setCreateContext({ start, end, allDay: !!allDay });
+    setCreateChooserOpen(true);
+  };
+
+  const handleChooseCreate = (type) => {
+    setCreateChooserOpen(false);
+    if (!createContext) return;
+    if (type === "event") {
+      setModalInitial({ start: createContext.start, end: createContext.end, allDay: createContext.allDay });
+      setModalOpen(true);
+    } else if (type === "task") {
+      setTaskModalInitial({
+        title: "Untitled task",
+        date: createContext.start,
+        allDay: !!createContext.allDay,
+        status: "pending",
+      });
+      setTaskModalOpen(true);
+    }
   };
 
   const handleEdit = (evt) => {
@@ -51,6 +72,8 @@ function App() {
   const onSaveTask = (payload) => {
     if (taskModalInitial?.id) {
       updateTask(taskModalInitial.id, payload);
+    } else {
+      addTask(payload);
     }
     setTaskModalOpen(false);
   };
@@ -74,9 +97,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-white text-[#1f1f1f]">
+      <div className="min-h-screen bg-white text-black">
         <TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} />
         <div className="flex">
+          <LeftNav />
           <LeftSidebar
             date={date}
             onDateChange={setDate}
@@ -103,6 +127,7 @@ function App() {
 
         <EventModal open={modalOpen} onClose={() => setModalOpen(false)} onSave={onSave} initial={modalInitial} calendars={calendars} onDelete={onDeleteEvent} />
         <TaskModal open={taskModalOpen} onClose={() => setTaskModalOpen(false)} initial={taskModalInitial} onSave={onSaveTask} onDelete={onDeleteTask} />
+        <CreateChooser open={createChooserOpen} onClose={() => setCreateChooserOpen(false)} onChoose={handleChooseCreate} />
       </div>
     </BrowserRouter>
   );

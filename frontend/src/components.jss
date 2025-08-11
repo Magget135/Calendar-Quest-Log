@@ -159,16 +159,15 @@ const expandRecurringTasks = (tasks, rangeStart, rangeEnd) => {
 };
 
 /********************** Colors & Fonts **********************/
-// Google Calendar primary and accents (approx)
 export const GC_COLORS = {
-  primary: "#1a73e8",
-  primaryDark: "#1557b0",
-  text: "#1f1f1f",
-  mutedText: "#5f6368",
-  border: "#e0e0e0",
+  primary: "#000000", // switched to black for monochrome theme
+  primaryDark: "#111111",
+  text: "#000000",
+  mutedText: "#6b7280",
+  border: "#e5e7eb",
   bg: "#ffffff",
   subBg: "#fafafa",
-  now: "#ea4335", // red line
+  now: "#000000", // now indicator in monochrome
 };
 export const EVENT_COLORS = [
   "#7986cb", "#33b679", "#8e24aa", "#e67c73", "#f4511e",
@@ -179,10 +178,10 @@ export const EVENT_COLORS = [
 const today = new Date();
 const weekStart = getWeekStart(today, true);
 const defaultCalendars = [
-  { id: "cal-1", name: "My Calendar", color: GC_COLORS.primary, checked: true },
-  { id: "cal-2", name: "Product", color: "#33b679", checked: true },
-  { id: "cal-3", name: "Personal", color: "#8e24aa", checked: true },
-  { id: "cal-4", name: "Fitness", color: "#f4511e", checked: false },
+  { id: "cal-1", name: "My Calendar", color: "#111111", checked: true },
+  { id: "cal-2", name: "Product", color: "#6b7280", checked: true },
+  { id: "cal-3", name: "Personal", color: "#9ca3af", checked: true },
+  { id: "cal-4", name: "Fitness", color: "#374151", checked: false },
 ];
 
 let idCounter = 1000;
@@ -240,10 +239,10 @@ const seedEvents = [
 let taskIdCounter = 5000;
 const makeTaskId = () => `task-${taskIdCounter++}`;
 const seedTasks = [
-  { id: makeTaskId(), title: "Pay bills", date: toISO(addDays(weekStart, 1)), status: "pending", color: "#f59e0b", category: "Personal", frequency: "weekly" },
-  { id: makeTaskId(), title: "Draft PRD", date: toISO(addDays(weekStart, 2)), status: "incomplete", color: "#3b82f6", category: "Work", frequency: "none" },
-  { id: makeTaskId(), title: "Buy groceries", date: toISO(addDays(weekStart, 3)), status: "completed", color: "#10b981", category: "Personal", frequency: "none" },
-  { id: makeTaskId(), title: "Call plumber", date: toISO(addDays(weekStart, 4)), status: "pending", color: "#ef4444", category: "Home", frequency: "daily" },
+  { id: makeTaskId(), title: "Pay bills", date: toISO(addDays(weekStart, 1)), status: "pending", color: "#000000", category: "Personal", frequency: "weekly", allDay: false },
+  { id: makeTaskId(), title: "Draft PRD", date: toISO(new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate()+2, 15, 0)), status: "incomplete", color: "#000000", category: "Work", frequency: "none", allDay: false },
+  { id: makeTaskId(), title: "Buy groceries", date: toISO(new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate()+3, 17, 30)), status: "completed", color: "#000000", category: "Personal", frequency: "none", allDay: false },
+  { id: makeTaskId(), title: "Call plumber", date: toISO(addDays(weekStart, 4)), status: "pending", color: "#000000", category: "Home", frequency: "daily", allDay: false },
 ];
 
 /********************** Icons **********************/
@@ -330,13 +329,13 @@ const Icon = ({ name, className = "w-5 h-5" }) => {
 export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
   return (
     <div className="w-full border-b border-gray-200 bg-white sticky top-0 z-40">
-      <div className="flex items-center justify-between px-4 sm:px-6 h-14">
+      <div className="flex items-center justify-between px-6 h-14">
         <div className="flex items-center gap-3">
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Menu">
             <Icon name="menu" />
           </button>
           <div className="flex items-center gap-2 select-none">
-            <div className="w-6 h-6 rounded-md bg-[#1a73e8] grid place-items-center text-white font-bold">31</div>
+            <div className="w-6 h-6 rounded-md bg-black grid place-items-center text-white font-bold">31</div>
             <div className="text-[18px] font-medium tracking-tight">Calendar</div>
           </div>
           <div className="hidden md:flex items-center gap-2 ml-4">
@@ -354,7 +353,7 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
         <div className="flex-1 max-w-[520px] mx-4 hidden md:flex items-center">
           <div className="relative flex-1">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"><Icon name="search" /></span>
-            <input className="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full outline-none text-sm focus:ring-2 focus:ring-blue-500" placeholder="Search" />
+            <input className="w-full pl-10 pr-3 py-2 bg-gray-100 rounded-full outline-none text-sm focus:ring-2 focus:ring-black" placeholder="Search" />
           </div>
         </div>
 
@@ -362,7 +361,7 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Help"><Icon name="help" /></button>
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Settings"><Icon name="settings" /></button>
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Apps"><Icon name="apps" /></button>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 grid place-items-center text-white text-xs font-bold ml-1">JD</div>
+          <div className="w-8 h-8 rounded-full bg-black grid place-items-center text-white text-xs font-bold ml-1">JD</div>
         </div>
       </div>
 
@@ -373,7 +372,7 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
         <div className="text-[18px] font-semibold">{title}</div>
       </div>
 
-      <div className="px-4 sm:px-6 py-2 border-t border-gray-100 flex items-center gap-2">
+      <div className="px-6 py-2 border-t border-gray-100 flex items-center gap-2">
         <ViewToggle view={view} setView={setView} />
       </div>
     </div>
@@ -387,10 +386,37 @@ const ViewToggle = ({ view, setView }) => {
       {opt.map((o) => {
         const active = view === o.toLowerCase();
         return (
-          <button key={o} onClick={() => setView(o.toLowerCase())} className={`px-3 py-1.5 text-sm ${active ? "bg-blue-50 text-blue-700" : "bg-white text-gray-700 hover:bg-gray-50"}`}>{o}</button>
+          <button key={o} onClick={() => setView(o.toLowerCase())} className={`px-3 py-1.5 text-sm ${active ? "bg-black text-white" : "bg-white text-black hover:bg-gray-50"}`}>{o}</button>
         );
       })}
     </div>
+  );
+};
+
+/********************** Left Nav (new) **********************/
+export const LeftNav = () => {
+  const items = [
+    "ActiveQuests",
+    "CompletedQuests",
+    "RewardStore",
+    "RedeemRewards",
+    "RewardLog",
+    "Recurringtasks",
+    "Inventory",
+    "Rules",
+    "Trash/Archive",
+    "Settings",
+  ];
+  return (
+    <aside className="w-[200px] shrink-0 border-r border-gray-200 bg-white hidden md:block">
+      <div className="p-4 space-y-2">
+        {items.map((label) => (
+          <button key={label} className="w-full text-left px-3 py-2 rounded hover:bg-gray-100 font-medium text-sm text-black border border-transparent">
+            {label}
+          </button>
+        ))}
+      </div>
+    </aside>
   );
 };
 
@@ -399,7 +425,7 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
   return (
     <aside className="w-[300px] shrink-0 border-r border-gray-200 bg-white hidden lg:block">
       <div className="p-4">
-        <button data-testid="create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-[#1a73e8] hover:bg-[#1557b0] text-white rounded-md py-2.5 shadow-sm transition">
+        <button data-testid="create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-900 text-white rounded-md py-2.5 shadow-sm transition">
           <Icon name="plus" className="w-5 h-5" />
           <span className="font-medium">Create</span>
         </button>
@@ -427,7 +453,7 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
         <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none">
           <input type="checkbox" checked={showTasks} onChange={(e) => setShowTasks(e.target.checked)} />
           <span className="inline-flex items-center gap-1">
-            <span className="inline-block w-3 h-3 rounded bg-amber-500" />
+            <span className="inline-block w-3 h-3 rounded bg-gray-400" />
             Show tasks on calendar
           </span>
         </label>
@@ -465,12 +491,12 @@ const MiniMonth = ({ date, onDateChange }) => {
           const isToday = sameDay(d, new Date());
           const isSelected = sameDay(d, date);
           return (
-            <button key={idx} onClick={() => onDateChange(d)} className={`aspect-[1/0.8] bg-white p-2 text-left hover:bg-blue-50 focus:outline-none ${isSelected ? "ring-2 ring-blue-500" : ""}`}>
-              <div className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] ${isToday ? "text-white bg-[#1a73e8]" : "text-gray-800"} ${isOther ? "opacity-40" : ""}`}>{d.getDate()}</div>
+            <button key={idx} onClick={() => onDateChange(d)} className={`aspect-[1/0.8] bg-white p-2 text-left hover:bg-gray-50 focus:outline-none ${isSelected ? "ring-2 ring-black" : ""}`}>
+              <div className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] ${isToday ? "text-white bg-black" : "text-gray-800"} ${isOther ? "opacity-40" : ""}`}>{d.getDate()}</div>
               <div className="mt-1 flex gap-0.5">
-                <span className="w-1 h-1 rounded-full bg-[#1a73e8]" />
-                <span className="w-1 h-1 rounded-full bg-[#33b679]" />
-                <span className="w-1 h-1 rounded-full bg-[#f4511e]" />
+                <span className="w-1 h-1 rounded-full bg-gray-800" />
+                <span className="w-1 h-1 rounded-full bg-gray-500" />
+                <span className="w-1 h-1 rounded-full bg-gray-400" />
               </div>
             </button>
           );
@@ -526,8 +552,8 @@ const NowIndicator = ({ date }) => {
   if (!isToday) return null;
   return (
     <div className="absolute left-0 right-0 z-10 pointer-events-none" style={{ top: `${top}%` }}>
-      <div className="absolute -left-2 w-2 h-2 bg-[#ea4335] rounded-full" />
-      <div className="border-t-2 border-[#ea4335]" />
+      <div className="absolute -left-2 w-2 h-2 bg-black rounded-full" />
+      <div className="border-t-2 border-black" />
     </div>
   );
 };
@@ -547,7 +573,9 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
     return overlaps(s, en, rangeStart, rangeEnd) || (e.allDay && overlaps(s, endOfDay(s), rangeStart, rangeEnd));
   });
   const expandedTasks = useMemo(() => expandRecurringTasks(tasks, rangeStart, rangeEnd), [tasks, rangeStart, rangeEnd]);
-  const dayTasks = useMemo(() => expandedTasks.filter(t => sameDay(parseISOish(t.date), date)), [expandedTasks, date]);
+  const dayTasksAll = useMemo(() => expandedTasks.filter(t => sameDay(parseISOish(t.date), date)), [expandedTasks, date]);
+  const dayAllDayTasks = dayTasksAll.filter(t => t.allDay);
+  const dayTimedTasks = dayTasksAll.filter(t => !t.allDay);
 
   const scrollRef = useRef(null);
   useAutoScrollToHour(scrollRef);
@@ -558,14 +586,14 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
         <div className="bg-white border-b border-gray-200 px-4 py-2">
           <div className="flex flex-col items-start leading-tight">
             <div className="text-xs text-gray-500 font-medium">{date.toLocaleDateString(undefined, { weekday: "short" })}</div>
-            <div className={`text-[18px] font-semibold ${sameDay(date, new Date()) ? "text-[#1a73e8]" : "text-gray-800"}`}>{date.getDate()}</div>
+            <div className={`text-[18px] font-semibold ${sameDay(date, new Date()) ? "text-black" : "text-gray-800"}`}>{date.getDate()}</div>
           </div>
         </div>
       </div>
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
         <div className="bg-white" />
         <div className="bg-white border-b border-gray-200 px-4 py-2">
-          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayTasks : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
+          <AllDayRow date={date} events={dayEvents.filter(e => e.allDay)} timedEvents={dayEvents.filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? dayAllDayTasks : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
         </div>
       </div>
       <div className="grid" style={{ gridTemplateColumns: "64px 1fr" }}>
@@ -592,6 +620,9 @@ const DayView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks, 
             <div className="absolute inset-0" style={{ zIndex: 20 }}>
               <EventBlocks events={dayEvents.filter(e => !e.allDay)} date={date} onEdit={onEdit} calendars={calendars} />
             </div>
+            <div className="absolute inset-0" style={{ zIndex: 25 }}>
+              {showTasks && <TaskBlocks tasks={dayTimedTasks} date={date} onEditTask={onEditTask} />}
+            </div>
           </div>
         </div>
       </div>
@@ -610,7 +641,9 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
     return overlaps(s, en, startOfDay(d), endOfDay(d)) || (e.allDay && overlaps(s, endOfDay(s), startOfDay(d), endOfDay(d)));
   }));
   const expandedTasks = useMemo(() => expandRecurringTasks(tasks, start, end), [tasks, start, end]);
-  const tasksByDay = useMemo(() => days.map(d => expandedTasks.filter(t => sameDay(parseISOish(t.date), d))), [expandedTasks, date]);
+  const tasksByDayAll = useMemo(() => days.map(d => expandedTasks.filter(t => sameDay(parseISOish(t.date), d))), [expandedTasks, date]);
+  const tasksByDayAllDay = tasksByDayAll.map(list => list.filter(t => t.allDay));
+  const tasksByDayTimed = tasksByDayAll.map(list => list.filter(t => !t.allDay));
 
   const scrollRef = useRef(null);
   useAutoScrollToHour(scrollRef);
@@ -623,7 +656,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
           <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
             <div className="flex flex-col items-start leading-tight">
               <div className="text-xs text-gray-500 font-medium">{d.toLocaleDateString(undefined, { weekday: "short" })}</div>
-              <div className={`text-[18px] font-semibold ${sameDay(d, new Date()) ? "text-[#1a73e8]" : "text-gray-800"}`}>{d.getDate()}</div>
+              <div className={`text-[18px] font-semibold ${sameDay(d, new Date()) ? "text-black" : "text-gray-800"}`}>{d.getDate()}</div>
             </div>
           </div>
         ))}
@@ -632,7 +665,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
         <div className="bg-white" />
         {days.map((d, i) => (
           <div key={i} className="bg-white border-b border-gray-200 px-4 py-2">
-            <AllDayRow date={d} events={byDay[i].filter(e => e.allDay)} timedEvents={byDay[i].filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? tasksByDay[i] : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
+            <AllDayRow date={d} events={byDay[i].filter(e => e.allDay)} timedEvents={byDay[i].filter(e => !e.allDay)} onEdit={onEdit} calendars={calendars} tasks={showTasks ? tasksByDayAllDay[i] : []} onToggleTaskStatus={onToggleTaskStatus} onEditTask={onEditTask} />
           </div>
         ))}
       </div>
@@ -645,7 +678,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
           ))}
         </div>
         {days.map((d, i) => (
-          <div key={i} className={`bg-white border-l border-gray-100 ${sameDay(d, new Date()) ? "bg-blue-50/20" : ""}`}>
+          <div key={i} className={`bg-white border-l border-gray-100 ${sameDay(d, new Date()) ? "bg-gray-50" : ""}`}>
             <div className="relative" style={{ height: `${hours.length * HOUR_PX}px` }}>
               <div className="absolute inset-0 pointer-events-none">
                 {hours.map((h) => (
@@ -661,6 +694,9 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
               <div className="absolute inset-0" style={{ zIndex: 20 }}>
                 <EventBlocks events={byDay[i].filter(e => !e.allDay)} date={d} onEdit={onEdit} calendars={calendars} />
               </div>
+              <div className="absolute inset-0" style={{ zIndex: 25 }}>
+                {showTasks && <TaskBlocks tasks={tasksByDayTimed[i]} date={d} onEditTask={onEditTask} />}
+              </div>
             </div>
           </div>
         ))}
@@ -669,7 +705,7 @@ const WeekView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks,
         <div className="bg-white" />
         {days.map((d, i) => (
           <div key={i} className="bg-white border-t border-gray-100 px-4 py-2 text-xs text-gray-500">
-            <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded ${sameDay(d, new Date()) ? "bg-[#1a73e8] text-white" : "bg-gray-100"}`}>
+            <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded bg-gray-100`}>
               <span className="font-semibold">{d.toLocaleDateString(undefined, { weekday: "short" })}</span>
               <span>{d.getDate()}</span>
             </div>
@@ -725,31 +761,31 @@ const MonthView = ({ date, events, calendars, onCreate, onEdit, tasks, showTasks
           const evs = grouped.get(key)?.events || [];
           const tks = grouped.get(key)?.tasks || [];
           return (
-            <div key={idx} className={`bg-white min-h-[160px] hover:bg-gray-50 transition ${sameDay(d, new Date()) ? "outline outline-2 outline-[#1a73e8] -outline-offset-2" : ""}`}>
+            <div key={idx} className={`bg-white min-h-[160px] hover:bg-gray-50 transition ${sameDay(d, new Date()) ? "outline outline-2 outline-black -outline-offset-2" : ""}`}>
               <div className="flex items-center justify-between px-2 py-1">
                 <button data-testid="month-date" onClick={() => onCreate({ start: d, end: d, allDay: true })} className={`text-xs font-medium px-1.5 py-0.5 rounded ${other ? "text-gray-400" : "text-gray-700"}`}>{d.getDate()}</button>
               </div>
               <div className="px-2 pb-2 space-y-1">
                 {evs.slice(0, 3).map((e) => (
-                  <button key={e._key || e.id} onClick={() => onEdit(e)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left">
-                    <span className="inline-block w-2 h-2 rounded" style={{ background: getEventColor(e, calendars) }} />
-                    <span className="truncate text-[12px]">{e.title}</span>
+                  <button key={e._key || e.id} onClick={() => onEdit(e)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left border-l-4" style={{ borderLeftColor: getEventColor(e, calendars) }}>
+                    <span className="inline-block text-[10px] uppercase tracking-wide text-gray-500">Event</span>
+                    <span className="truncate text-[12px] text-black">{e.title}</span>
                   </button>
                 ))}
                 {evs.length > 3 && (
-                  <div className="text-xs text-blue-700">+{evs.length - 3} more</div>
+                  <div className="text-xs text-gray-700">+{evs.length - 3} more</div>
                 )}
 
                 {showTasks && (
                   <div className="mt-1 space-y-1">
                     {tks.slice(0, 2).map((t) => (
-                      <button key={t._key || t.id} onClick={() => onEditTask && onEditTask(t)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left">
-                        <span className="inline-block w-2 h-2 rounded" style={{ background: t.color || "#f59e0b" }} />
-                        <span className="truncate text-[12px]">{t.title}</span>
+                      <button key={t._key || t.id} onClick={() => onEditTask && onEditTask(t)} className="w-full flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 text-left border-l-4" style={{ borderLeftColor: taskDueStripeColor(parseISOish(t.date)) }}>
+                        <span className="inline-block text-[10px] uppercase tracking-wide text-gray-500">Task</span>
+                        <span className="truncate text-[12px] text-black">{timeBadge(parseISOish(t.date))} {t.title}</span>
                       </button>
                     ))}
                     {tks.length > 2 && (
-                      <div className="text-xs text-amber-700">+{tks.length - 2} more tasks</div>
+                      <div className="text-xs text-gray-700">+{tks.length - 2} more tasks</div>
                     )}
                   </div>
                 )}
@@ -767,7 +803,11 @@ const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = 
     <div className="min-h-[38px] flex flex-col gap-1">
       <div className="flex flex-wrap gap-1">
         {events.map((e) => (
-          <button key={e._key || e.id} onClick={() => onEdit(e)} className="px-2 py-0.5 rounded text-[12px] text-white shadow-sm hover:brightness-95" style={{ background: getEventColor(e, calendars) }}>{e.title}</button>
+          <button key={e._key || e.id} onClick={() => onEdit(e)} className="px-2 py-0.5 rounded text-[12px] bg-white text-black border border-gray-200 hover:bg-gray-50 shadow-sm">
+            <span className="mr-2 inline-block w-2 h-2 rounded-full" style={{ background: getEventColor(e, calendars) }} />
+            <span className="uppercase text-[10px] text-gray-500 mr-1">Event</span>
+            {e.title}
+          </button>
         ))}
       </div>
       {timedEvents.length > 0 && (
@@ -775,14 +815,15 @@ const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = 
           {timedEvents.slice(0, 2).map((e) => {
             const s = parseISOish(e.start);
             return (
-              <button key={`t-${e._key || e.id}`} onClick={() => onEdit(e)} className="px-1.5 py-0.5 rounded bg-gray-50 hover:bg-gray-100 text-[11px] text-gray-700 inline-flex items-center gap-1">
-                <span className="inline-block w-2 h-2 rounded" style={{ background: getEventColor(e, calendars) }} />
+              <button key={`t-${e._key || e.id}`} onClick={() => onEdit(e)} className="px-1.5 py-0.5 rounded bg-white hover:bg-gray-50 text-[11px] text-black border border-gray-200 inline-flex items-center gap-1">
+                <span className="inline-block w-1.5 h-4 rounded-sm" style={{ background: getEventColor(e, calendars) }} />
+                <span className="uppercase text-[9px] text-gray-500">Event</span>
                 <span>{toTimeLabel(s)} {e.title}</span>
               </button>
             );
           })}
           {timedEvents.length > 2 && (
-            <div className="text-[11px] text-blue-700">+{timedEvents.length - 2} more</div>
+            <div className="text-[11px] text-gray-700">+{timedEvents.length - 2} more</div>
           )}
         </div>
       )}
@@ -790,13 +831,13 @@ const AllDayRow = ({ date, events, timedEvents = [], onEdit, calendars, tasks = 
       {tasks.length > 0 && (
         <div className="flex flex-wrap gap-1 mt-1">
           {tasks.slice(0, 3).map((t) => (
-            <button key={t._key || t.id} onClick={() => onEditTask && onEditTask(t)} className={`px-2 py-0.5 rounded text-[11px] inline-flex items-center gap-2 border bg-white hover:bg-gray-50 text-gray-800`}>
-              <span className="inline-block w-2 h-2 rounded" style={{ background: t.color || "#f59e0b" }} />
+            <button key={t._key || t.id} onClick={() => onEditTask && onEditTask(t)} className={`px-2 py-0.5 rounded text-[11px] inline-flex items-center gap-2 border bg-white hover:bg-gray-50 text-black border-l-4`} style={{ borderLeftColor: taskDueStripeColor(parseISOish(t.date)) }}>
+              <span className="uppercase text-[9px] text-gray-500">Task</span>
               <span className="truncate">{t.title}</span>
             </button>
           ))}
           {tasks.length > 3 && (
-            <div className="text-[11px] text-amber-700">+{tasks.length - 3} more tasks</div>
+            <div className="text-[11px] text-gray-700">+{tasks.length - 3} more tasks</div>
           )}
         </div>
       )}
@@ -825,7 +866,7 @@ const getCalendarColor = (calendarId, calendars) => calendars.find(c => c.id ===
 const getEventColor = (e, calendars) => e.color || getCalendarColor(e.calendarId, calendars);
 
 const EventBlocks = ({ events, date, onEdit, calendars }) => {
-  // Simple stacking without collision resolution beyond basic offset
+  // Monochrome block with colored left border as category indicator
   return (
     <div className="relative h-full">
       {events.map((e, idx) => {
@@ -839,11 +880,47 @@ const EventBlocks = ({ events, date, onEdit, calendars }) => {
           <button
             key={e._key || e.id}
             onClick={() => onEdit(e)}
-            className="absolute right-2 left-2 text-left rounded-md shadow-sm text-white px-2 py-1 overflow-hidden hover:brightness-95"
-            style={{ top: `${minutesFromTop}%`, height: `${heightPct}%`, background: getEventColor(e, calendars), transform: `translateX(${leftOffset}px)` }}
+            className="absolute right-2 left-2 text-left rounded-md border border-gray-200 bg-white text-black px-2 py-1 overflow-hidden hover:bg-gray-50"
+            style={{ top: `${minutesFromTop}%`, height: `${heightPct}%`, transform: `translateX(${leftOffset}px)`, borderLeftWidth: 4, borderLeftColor: getEventColor(e, calendars) }}
           >
+            <div className="text-[10px] uppercase tracking-wide text-gray-500">Event</div>
             <div className="text-[12px] font-medium leading-tight">{e.title}</div>
-            <div className="text-[10px] opacity-90">{toTimeRange(s, en)}</div>
+            <div className="text-[10px] text-gray-600">{toTimeRange(s, en)}</div>
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+const TASK_BLOCK_MINUTES = 45;
+const taskDueStripeColor = (d) => {
+  const t = startOfDay(new Date());
+  const dd = startOfDay(new Date(d));
+  if (dd.getTime() < t.getTime()) return "#ef4444"; // red for overdue
+  if (dd.getTime() === t.getTime()) return "#3b82f6"; // blue for today
+  return "#10b981"; // green for future
+};
+
+const TaskBlocks = ({ tasks, date, onEditTask }) => {
+  return (
+    <div className="relative h-full">
+      {tasks.map((t, idx) => {
+        const s = parseISOish(t.date);
+        const minutesFromTop = (s.getHours() * 60 + s.getMinutes()) / (24 * 60) * 100;
+        const duration = TASK_BLOCK_MINUTES;
+        const heightPct = (duration / (24 * 60)) * 100;
+        const leftOffset = (idx % 3) * 6 + 2; // offset a bit differently from events
+        return (
+          <button
+            key={t._key || t.id}
+            onClick={() => onEditTask && onEditTask(t)}
+            className="absolute right-2 left-2 text-left rounded-md border border-gray-200 bg-white text-black px-2 py-1 overflow-hidden hover:bg-gray-50"
+            style={{ top: `${minutesFromTop}%`, height: `${heightPct}%`, transform: `translateX(${leftOffset}px)`, borderLeftWidth: 4, borderLeftColor: taskDueStripeColor(s) }}
+          >
+            <div className="text-[10px] uppercase tracking-wide text-gray-500">Task</div>
+            <div className="text-[12px] font-medium leading-tight">{t.title}</div>
+            <div className="text-[10px] text-gray-600">{toTimeLabel(s)}</div>
           </button>
         );
       })}
@@ -967,7 +1044,7 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete
                   };
                   onSave(payload);
                 }}
-                className="px-3 py-1.5 rounded bg-[#1a73e8] text-white hover:bg-[#1557b0]"
+                className="px-3 py-1.5 rounded bg-black text-white hover:bg-gray-900"
               >Save</button>
             </div>
           </div>
@@ -981,8 +1058,9 @@ export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete
 export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
   const [title, setTitle] = useState(initial?.title || "Untitled task");
   const [date, setDate] = useState(initial?.date ? toISO(parseISOish(initial.date)) : toISO(new Date()));
+  const [allDay, setAllDay] = useState(initial?.allDay || false);
   const [status, setStatus] = useState(initial?.status || "pending");
-  const [color, setColor] = useState(initial?.color || "#f59e0b");
+  const [color, setColor] = useState(initial?.color || "#000000");
   const [category, setCategory] = useState(initial?.category || "");
   const [frequency, setFrequency] = useState(initial?.frequency || "none");
 
@@ -991,13 +1069,21 @@ export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
     setTitle(initial?.title || "Untitled task");
     const d = initial?.date instanceof Date ? initial.date : initial?.date ? parseISOish(initial.date) : new Date();
     setDate(toISO(d));
+    setAllDay(initial?.allDay || false);
     setStatus(initial?.status || "pending");
-    setColor(initial?.color || "#f59e0b");
+    setColor(initial?.color || "#000000");
     setCategory(initial?.category || "");
     setFrequency(initial?.frequency || "none");
   }, [open, initial]);
 
   if (!open) return null;
+
+  const dateInputType = allDay ? "date" : "datetime-local";
+  const formatForInput = (val) => {
+    const d = parseISOish(val);
+    if (allDay) return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    return toISO(d);
+  };
 
   return (
     <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
@@ -1012,10 +1098,15 @@ export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
             <div>
               <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full text-[20px] font-medium outline-none" />
             </div>
+            <div className="flex items-center gap-3">
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={allDay} onChange={(e) => setAllDay(e.target.checked)} />
+                All day</label>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <div className="text-xs text-gray-500 mb-1">Date & Time</div>
-                <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border rounded px-2 py-1 text-sm" />
+                <div className="text-xs text-gray-500 mb-1">{allDay ? "Date" : "Date & Time"}</div>
+                <input type={dateInputType} value={formatForInput(date)} onChange={(e) => setDate(e.target.value)} className="w-full border rounded px-2 py-1 text-sm" />
               </div>
               <div>
                 <div className="text-xs text-gray-500 mb-1">Status</div>
@@ -1053,9 +1144,17 @@ export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
               <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Cancel</button>
               <button
                 onClick={() => {
+                  let normalizedDate = date;
+                  if (allDay) {
+                    // when all-day, ensure time component is 00:00
+                    const d = typeof date === "string" ? new Date(date) : parseISOish(date);
+                    d.setHours(0,0,0,0);
+                    normalizedDate = toISO(d);
+                  }
                   const payload = {
                     title: title?.trim() || "Untitled task",
-                    date: date,
+                    date: normalizedDate,
+                    allDay,
                     status,
                     color,
                     category: category || undefined,
@@ -1063,9 +1162,41 @@ export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
                   };
                   onSave(payload);
                 }}
-                className="px-3 py-1.5 rounded bg-[#1a73e8] text-white hover:bg-[#1557b0]"
+                className="px-3 py-1.5 rounded bg-black text-white hover:bg-gray-900"
               >Save</button>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/********************** Create Chooser **********************/
+export const CreateChooser = ({ open, onClose, onChoose }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
+      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="w-full max-w-sm bg-white rounded-xl shadow-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200">
+            <div className="text-[16px] font-semibold">What would you like to create?</div>
+          </div>
+          <div className="p-4 space-y-3">
+            <button onClick={() => onChoose("event")} className="w-full text-left px-4 py-3 border border-gray-200 rounded hover:bg-gray-50">
+              <div className="text-[12px] uppercase text-gray-500">Option</div>
+              <div className="text-[15px] font-medium">Event</div>
+              <div className="text-[12px] text-gray-500">Scheduled with a start and end time</div>
+            </button>
+            <button onClick={() => onChoose("task")} className="w-full text-left px-4 py-3 border border-gray-200 rounded hover:bg-gray-50">
+              <div className="text-[12px] uppercase text-gray-500">Option</div>
+              <div className="text-[15px] font-medium">Task</div>
+              <div className="text-[12px] text-gray-500">Single due date/time (optional all-day)</div>
+            </button>
+          </div>
+          <div className="px-4 py-3 border-t border-gray-200 text-right">
+            <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Cancel</button>
           </div>
         </div>
       </div>
