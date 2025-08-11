@@ -485,8 +485,6 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
                 <span>{c.name}</span>
               </label>
               <PresetQuickApply calendars={calendars} onApply={(presetColor) => setCalendars(prev => prev.map(p => p.id === c.id ? { ...p, color: presetColor } : p))} />
-      )}
-
             </div>
           ))}
         </div>
