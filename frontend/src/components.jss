@@ -490,7 +490,8 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
         </div>
       </div>
 
-      <div className="px-3 pb-6 border-t border-gray-100 pt-4 relative">
+      {!collapsed && (
+        <div className="px-3 pb-6 border-t border-gray-100 pt-4 relative">
         <div className="flex items-center justify-between mb-2">
           <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Tasks</div>
           <button className="text-xs text-gray-600 hover:text-black" onClick={() => setLegendOpen((v) => !v)}>Legend</button>
