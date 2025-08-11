@@ -938,6 +938,16 @@ const toTimeLabel = (d) => {
 
 const toTimeRange = (s, e) => `${toTimeLabel(s)} - ${toTimeLabel(e)}`;
 
+const timeBadge = (d) => {
+  if (!d) return "";
+  const h = d.getHours();
+  const m = pad(d.getMinutes());
+  if (h === 0 && m === "00") return ""; // all-day tasks don't show time
+  const ap = h >= 12 ? "PM" : "AM";
+  const hh = h % 12 === 0 ? 12 : h % 12;
+  return `${hh}:${m} ${ap}`;
+};
+
 /********************** Event Modal **********************/
 export const EventModal = ({ open, onClose, onSave, initial, calendars, onDelete }) => {
   const [title, setTitle] = useState(initial?.title || "Untitled event");
