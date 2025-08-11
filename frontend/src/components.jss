@@ -459,6 +459,9 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
       {/* Collapse toggle button */}
       <button onClick={onToggle} aria-label="Toggle LeftSidebar" className="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full border bg-white text-gray-600 hover:bg-gray-50 grid place-items-center shadow">
         <span className="transform">{collapsed ? "›" : "‹"}</span>
+        </div>
+      )}
+
       </button>
 
         <button data-testid="create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-900 text-white rounded-md py-2.5 shadow-sm transition">
