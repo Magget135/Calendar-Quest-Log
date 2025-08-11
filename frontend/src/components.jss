@@ -1402,6 +1402,17 @@ export const SectionPage = ({ title }) => {
     <div className="text-gray-600">This is a placeholder page for {title}. Content coming soon.</div>
   </div>
 );
+  return (
+    <div className="p-8">
+      <div className="flex items-center justify-between mb-4">
+        <div className="text-2xl font-semibold">{title}</div>
+        <Link to="/" className="px-3 py-1.5 rounded border text-sm hover:bg-gray-100">Calendar</Link>
+      </div>
+      <div className="text-gray-600">This is a placeholder page for {title}. Content coming soon.</div>
+    </div>
+  );
+};
+
 
 /********************** Placeholder **********************/
 const SchedulePlaceholder = () => (
