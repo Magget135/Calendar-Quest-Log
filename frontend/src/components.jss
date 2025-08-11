@@ -428,9 +428,8 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
   ];
 
   const location = useLocation();
-  return (
-          const iconOnly = collapsed;
-          const renderIcon = (name) => (
+  const items = config;
+  const renderIcon = (name) => (
             name === "calendar" ? (
               <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4"/><path d="M3 9h18"/></svg>
             ) : name === "bolt" ? (
