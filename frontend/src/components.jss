@@ -343,6 +343,8 @@ const Icon = ({ name, className = "w-5 h-5" }) => {
 
 /********************** Top Bar **********************/
 export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
+  const location = useLocation();
+  const onSectionPage = location.pathname !== "/";
   return (
     <div className="w-full border-b border-gray-200 bg-white sticky top-0 z-40">
       <div className="flex items-center justify-between px-6 h-14">
