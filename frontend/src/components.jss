@@ -470,9 +470,11 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
         </button>
       </div>
 
-      <div className="px-3 pb-4">
+      {!collapsed && (
+        <div className="px-3 pb-4">
         <MiniMonth date={date} onDateChange={onDateChange} />
       </div>
+      )}
 
       <div className="px-3 pb-4">
         <div className="flex items-center justify-between mb-2">
