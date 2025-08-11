@@ -441,6 +441,33 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
 
   const location = useLocation();
   return (
+          const iconOnly = collapsed;
+          const renderIcon = (name) => (
+            name === "calendar" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4"/><path d="M3 9h18"/></svg>
+            ) : name === "bolt" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z"/></svg>
+            ) : name === "checklist" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M5 6l1 1 2-2M5 12l1 1 2-2M5 18l1 1 2-2"/></svg>
+            ) : name === "cart" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M3 4h2l2.4 12.4a2 2 0 001.97 1.6h8.26a2 2 0 001.97-1.6L21 8H7"/></svg>
+            ) : name === "gift" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20 12v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8"/><path d="M20 7H4v5h16z"/><path d="M12 22V7"/><path d="M12 7s-1.5-4 2-4 2 4 2 4M12 7s1.5-4-2-4-2 4-2 4"/></svg>
+            ) : name === "list" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.5"/><circle cx="3.5" cy="12" r="1.5"/><circle cx="3.5" cy="18" r="1.5"/></svg>
+            ) : name === "repeat" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            ) : name === "box" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg>
+            ) : name === "book" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 19.5A2.5 2.5 0 006.5 22H20"/><path d="M20 2H6.5A2.5 2.5 0 004 4.5v15"/><path d="M8 2v15"/></svg>
+            ) : name === "trash" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+            ) : name === "gear" ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06c.46-.46.6-1.14.33-1.82.27-.6.88-1 1.58-1H21a2 2 0 010 4h-.09c-.7 0-1.31.4-1.51 1z"/></svg>
+            ) : null
+          );
+
     <aside className={`relative shrink-0 border-r border-gray-200 bg-white hidden md:block transition-all duration-200 ${collapsed ? "w-[40px]" : "w-[200px]"}`}
          aria-expanded={!collapsed}
     >
