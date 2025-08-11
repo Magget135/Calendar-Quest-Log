@@ -412,7 +412,6 @@ const ViewToggle = ({ view, setView }) => {
 
 /********************** Left Nav (new) **********************/
 export const LeftNav = ({ collapsed = false, onToggle }) => {
-  const items = config;
   const calendarItem = { label: "Calendar", path: "/", icon: "calendar" };
   const config = [
     calendarItem,
