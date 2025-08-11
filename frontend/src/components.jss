@@ -425,7 +425,7 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
   ];
   const location = useLocation();
   return (
-    <aside className="w-[200px] shrink-0 border-r border-gray-200 bg-white hidden md:block">
+    <aside className={`relative shrink-0 border-r border-gray-200 bg-white hidden md:block transition-all duration-200 ${collapsed ? "w-[40px]" : "w-[200px]"}`}>
       <div className="p-4 space-y-2">
         {items.map((item) => {
           const active = location.pathname === item.path;
