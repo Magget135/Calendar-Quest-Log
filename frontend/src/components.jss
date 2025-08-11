@@ -376,6 +376,9 @@ export const TopBar = ({ title, onPrev, onNext, onToday, view, setView }) => {
         </div>
 
         <div className="hidden md:flex items-center gap-1">
+          {onSectionPage && (
+            <Link to="/" className="mr-2 px-3 py-1.5 border rounded text-sm hover:bg-gray-50" aria-label="Back to Calendar">Calendar</Link>
+          )}
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Help"><Icon name="help" /></button>
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Settings"><Icon name="settings" /></button>
           <button className="p-2 rounded hover:bg-gray-100" aria-label="Apps"><Icon name="apps" /></button>
