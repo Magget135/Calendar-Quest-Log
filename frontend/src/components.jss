@@ -500,18 +500,9 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
       {!collapsed && (
         <div className="p-4">
           <button data-testid="create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-900 text-white rounded-md py-2.5 shadow-sm transition">
-          <Icon name="plus" className="w-5 h-5" />
           <span className="font-medium">Create</span>
         </button>
       </div>
-      )}
-
-      {collapsed && (
-        <div className="p-2 flex flex-col items-center gap-2">
-          <button title="Create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-7 h-7 grid place-items-center rounded-full bg-black text-white hover:bg-gray-900 shadow" aria-label="Create">
-            <Icon name="plus" className="w-4 h-4" />
-          </button>
-        </div>
       )}
 
       {!collapsed && (
