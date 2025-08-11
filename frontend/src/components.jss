@@ -8,6 +8,7 @@
 */
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 /********************** Utils **********************/
 const pad = (n) => (n < 10 ? `0${n}` : `${n}`);
@@ -160,14 +161,14 @@ const expandRecurringTasks = (tasks, rangeStart, rangeEnd) => {
 
 /********************** Colors & Fonts **********************/
 export const GC_COLORS = {
-  primary: "#000000", // switched to black for monochrome theme
+  primary: "#000000",
   primaryDark: "#111111",
   text: "#000000",
   mutedText: "#6b7280",
   border: "#e5e7eb",
   bg: "#ffffff",
   subBg: "#fafafa",
-  now: "#000000", // now indicator in monochrome
+  now: "#000000",
 };
 export const EVENT_COLORS = [
   "#7986cb", "#33b679", "#8e24aa", "#e67c73", "#f4511e",
@@ -410,25 +411,29 @@ const ViewToggle = ({ view, setView }) => {
 /********************** Left Nav (new) **********************/
 export const LeftNav = () => {
   const items = [
-    "ActiveQuests",
-    "CompletedQuests",
-    "RewardStore",
-    "RedeemRewards",
-    "RewardLog",
-    "Recurringtasks",
-    "Inventory",
-    "Rules",
-    "Trash/Archive",
-    "Settings",
+    { label: "ActiveQuests", path: "/active-quests" },
+    { label: "CompletedQuests", path: "/completed-quests" },
+    { label: "RewardStore", path: "/reward-store" },
+    { label: "RedeemRewards", path: "/redeem-rewards" },
+    { label: "RewardLog", path: "/reward-log" },
+    { label: "Recurringtasks", path: "/recurringtasks" },
+    { label: "Inventory", path: "/inventory" },
+    { label: "Rules", path: "/rules" },
+    { label: "Trash/Archive", path: "/trash-archive" },
+    { label: "Settings", path: "/settings" },
   ];
+  const location = useLocation();
   return (
     <aside className="w-[200px] shrink-0 border-r border-gray-200 bg-white hidden md:block">
       <div className="p-4 space-y-2">
-        {items.map((label) => (
-          <button key={label} className="w-full text-left px-3 py-2 rounded hover:bg-gray-100 font-medium text-sm text-black border border-transparent">
-            {label}
-          </button>
-        ))}
+        {items.map((item) => {
+          const active = location.pathname === item.path;
+          return (
+            <Link key={item.path} to={item.path} className={`block px-3 py-2 rounded font-medium text-sm border ${active ? "bg-black text-white border-black" : "text-black border-transparent hover:bg-gray-100"}`}>
+              {item.label}
+            </Link>
+          );
+        })}
       </div>
     </aside>
   );
@@ -436,8 +441,10 @@ export const LeftNav = () => {
 
 /********************** Left Sidebar **********************/
 export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalendars, showTasks, setShowTasks }) => {
+  const [legendOpen, setLegendOpen] = useState(false);
+  const [presetsOpen, setPresetsOpen] = useState(false);
   return (
-    <aside className="w-[300px] shrink-0 border-r border-gray-200 bg-white hidden lg:block">
+    <aside className="w-[300px] shrink-0 border-r border-gray-200 bg-white hidden lg:block relative">
       <div className="p-4">
         <button data-testid="create" onClick={() => onCreate({ start: new Date(), end: addDays(new Date(), 0), allDay: false })} className="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-900 text-white rounded-md py-2.5 shadow-sm transition">
           <Icon name="plus" className="w-5 h-5" />
@@ -450,21 +457,31 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
       </div>
 
       <div className="px-3 pb-4">
-        <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">My calendars</div>
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">My calendars</div>
+          <button className="text-xs underline text-gray-600 hover:text-black" onClick={() => setPresetsOpen(true)}>Manage presets</button>
+        </div>
         <div className="space-y-2">
           {calendars.map((c) => (
-            <label key={c.id} className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none">
-              <input type="checkbox" checked={c.checked} onChange={(e) => setCalendars((prev) => prev.map(p => p.id === c.id ? { ...p, checked: e.target.checked } : p))} />
-              <span className="inline-block w-3 h-3 rounded" style={{ background: c.color }} />
-              <span>{c.name}</span>
-            </label>
+            <div key={c.id} className="flex items-center justify-between gap-2 text-sm text-gray-800 select-none">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={c.checked} onChange={(e) => setCalendars((prev) => prev.map(p => p.id === c.id ? { ...p, checked: e.target.checked } : p))} />
+                <span className="inline-block w-3 h-3 rounded" style={{ background: c.color }} />
+                <span>{c.name}</span>
+              </label>
+              <PresetQuickApply calendars={calendars} onApply={(presetColor) => setCalendars(prev => prev.map(p => p.id === c.id ? { ...p, color: presetColor } : p))} />
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="px-3 pb-6 border-t border-gray-100 pt-4">
-        <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Tasks</div>
-        <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none">
+      <div className="px-3 pb-6 border-t border-gray-100 pt-4 relative">
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Tasks</div>
+          <button className="text-xs text-gray-600 hover:text-black" onClick={() => setLegendOpen((v) => !v)}>Legend</button>
+        </div>
+        {legendOpen && <TaskLegend />}
+        <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none mt-2">
           <input type="checkbox" checked={showTasks} onChange={(e) => setShowTasks(e.target.checked)} />
           <span className="inline-flex items-center gap-1">
             <span className="inline-block w-3 h-3 rounded bg-gray-400" />
@@ -472,6 +489,8 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
           </span>
         </label>
       </div>
+
+      {presetsOpen && <PresetsModal onClose={() => setPresetsOpen(false)} onApplyToCalendar={(calendarId, color) => setCalendars(prev => prev.map(p => p.id === calendarId ? { ...p, color } : p))} calendars={calendars} />}
     </aside>
   );
 };
@@ -880,7 +899,6 @@ const getCalendarColor = (calendarId, calendars) => calendars.find(c => c.id ===
 const getEventColor = (e, calendars) => e.color || getCalendarColor(e.calendarId, calendars);
 
 const EventBlocks = ({ events, date, onEdit, calendars }) => {
-  // Monochrome block with colored left border as category indicator
   return (
     <div className="relative h-full">
       {events.map((e, idx) => {
@@ -911,9 +929,9 @@ const TASK_BLOCK_MINUTES = 45;
 const taskDueStripeColor = (d) => {
   const t = startOfDay(new Date());
   const dd = startOfDay(new Date(d));
-  if (dd.getTime() < t.getTime()) return "#ef4444"; // red for overdue
-  if (dd.getTime() === t.getTime()) return "#3b82f6"; // blue for today
-  return "#10b981"; // green for future
+  if (dd.getTime() < t.getTime()) return "#ef4444";
+  if (dd.getTime() === t.getTime()) return "#3b82f6";
+  return "#10b981";
 };
 
 const TaskBlocks = ({ tasks, date, onEditTask }) => {
@@ -924,7 +942,7 @@ const TaskBlocks = ({ tasks, date, onEditTask }) => {
         const minutesFromTop = (s.getHours() * 60 + s.getMinutes()) / (24 * 60) * 100;
         const duration = TASK_BLOCK_MINUTES;
         const heightPct = (duration / (24 * 60)) * 100;
-        const leftOffset = (idx % 3) * 6 + 2; // offset a bit differently from events
+        const leftOffset = (idx % 3) * 6 + 2;
         return (
           <button
             key={t._key || t.id}
@@ -955,7 +973,7 @@ const timeBadge = (d) => {
   if (!d) return "";
   const h = d.getHours();
   const m = pad(d.getMinutes());
-  if (h === 0 && m === "00") return ""; // all-day tasks don't show time
+  if (h === 0 && m === "00") return "";
   const ap = h >= 12 ? "PM" : "AM";
   const hh = h % 12 === 0 ? 12 : h % 12;
   return `${hh}:${m} ${ap}`;
@@ -1182,7 +1200,6 @@ export const TaskModal = ({ open, onClose, initial, onSave, onDelete }) => {
                 onClick={() => {
                   let normalizedDate = date;
                   if (allDay) {
-                    // when all-day, ensure time component is 00:00
                     const d = typeof date === "string" ? new Date(date) : parseISOish(date);
                     d.setHours(0,0,0,0);
                     normalizedDate = toISO(d);
@@ -1240,6 +1257,130 @@ export const CreateChooser = ({ open, onClose, onChoose }) => {
   );
 };
 
+/********************** Compact Task Legend **********************/
+const TaskLegend = () => {
+  return (
+    <div className="border border-gray-200 rounded-md p-2 text-xs text-gray-700 bg-white">
+      <div className="flex items-center gap-2 mb-1"><span className="inline-block w-3 h-3 rounded-sm" style={{ background: "#ef4444" }}></span> Overdue (due date before today)</div>
+      <div className="flex items-center gap-2 mb-1"><span className="inline-block w-3 h-3 rounded-sm" style={{ background: "#3b82f6" }}></span> Due Today</div>
+      <div className="flex items-center gap-2"><span className="inline-block w-3 h-3 rounded-sm" style={{ background: "#10b981" }}></span> Upcoming (future due date)</div>
+    </div>
+  );
+};
+
+/********************** Preset Quick Apply **********************/
+const loadPresets = () => {
+  try {
+    const raw = localStorage.getItem("calendarColorPresetsV1");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+const savePresets = (list) => {
+  try { localStorage.setItem("calendarColorPresetsV1", JSON.stringify(list)); } catch {}
+};
+
+const PresetQuickApply = ({ calendars, onApply }) => {
+  const [presets, setPresets] = useState(loadPresets());
+  useEffect(() => {
+    const onStorage = () => setPresets(loadPresets());
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+  return (
+    <select className="text-xs border rounded px-1 py-1 bg-white" defaultValue="" onChange={(e) => { if (e.target.value) { onApply(e.target.value); e.target.value = ""; } }}>
+      <option value="">Preset…</option>
+      {presets.map((p) => (
+        <option key={p.id} value={p.color}>{p.name}</option>
+      ))}
+    </select>
+  );
+};
+
+const uid = () => Math.random().toString(36).slice(2, 10);
+
+const PresetsModal = ({ onClose, onApplyToCalendar, calendars }) => {
+  const [presets, setPresets] = useState(loadPresets());
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("#111827");
+  const [applyCalendar, setApplyCalendar] = useState(calendars[0]?.id || "");
+
+  const addPreset = () => {
+    if (!name.trim()) return;
+    const next = [...presets, { id: uid(), name: name.trim(), color: color.toUpperCase() }];
+    setPresets(next); savePresets(next); setName("");
+  };
+  const removePreset = (id) => {
+    const next = presets.filter(p => p.id !== id);
+    setPresets(next); savePresets(next);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
+      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="w-full max-w-lg bg-white rounded-xl shadow-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+            <div className="text-[16px] font-semibold">Color Presets</div>
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">✕</button>
+          </div>
+          <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <div className="text-sm font-medium mb-2">Existing presets</div>
+              <div className="space-y-2">
+                {presets.length === 0 && <div className="text-xs text-gray-500">No presets yet</div>}
+                {presets.map((p) => (
+                  <div key={p.id} className="flex items-center justify-between gap-2 border rounded px-2 py-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-block w-4 h-4 rounded" style={{ background: p.color }} />
+                      <div className="text-sm">{p.name}</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <select value={applyCalendar} onChange={(e) => setApplyCalendar(e.target.value)} className="text-xs border rounded px-1 py-1">
+                        {calendars.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                      </select>
+                      <button className="text-xs px-2 py-1 border rounded hover:bg-gray-50" onClick={() => onApplyToCalendar(applyCalendar, p.color)}>Apply</button>
+                      <button className="text-xs px-2 py-1 border rounded text-red-600 hover:bg-red-50" onClick={() => removePreset(p.id)}>Delete</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-sm font-medium mb-2">Create new preset</div>
+              <div className="space-y-2">
+                <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Preset name" className="w-full border rounded px-2 py-1 text-sm" />
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Pick a color</div>
+                  <div className="flex flex-wrap gap-2">
+                    {EVENT_COLOR_PALETTE.map(c => (
+                      <button key={c} className={`w-6 h-6 rounded-full border ${color.toUpperCase() === c ? "ring-2 ring-black border-black" : "border-gray-300 hover:border-gray-400"}`} style={{ background: c }} onClick={() => setColor(c)} />
+                    ))}
+                    <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="w-10 h-8 border rounded" />
+                  </div>
+                </div>
+                <button onClick={addPreset} className="px-3 py-1.5 rounded bg-black text-white hover:bg-gray-900">Add preset</button>
+              </div>
+            </div>
+          </div>
+          <div className="px-4 py-3 border-t border-gray-200 text-right">
+            <button onClick={onClose} className="px-3 py-1.5 rounded hover:bg-gray-100">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/********************** Placeholder Page **********************/
+export const SectionPage = ({ title }) => (
+  <div className="p-8">
+    <div className="text-2xl font-semibold mb-2">{title}</div>
+    <div className="text-gray-600">This is a placeholder page for {title}. Content coming soon.</div>
+  </div>
+);
+
 /********************** Placeholder **********************/
 const SchedulePlaceholder = () => (
   <div className="flex-1 grid place-items-center text-gray-500 p-10">
@@ -1286,6 +1427,5 @@ export const useCalendarState = () => {
 };
 
 export const rangeTitle = (view, date) => {
-  // Always show just Month Year similar to Google Calendar when in Week/Day as requested
   return date.toLocaleDateString(undefined, { month: "long", year: "numeric" });
 };

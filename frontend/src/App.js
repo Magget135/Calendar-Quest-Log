@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import "./index.css";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-import { CalendarView, EventModal, LeftSidebar, TopBar, TaskModal, rangeTitle, useCalendarState, LeftNav, CreateChooser } from "./components.jss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CalendarView, EventModal, LeftSidebar, TopBar, TaskModal, rangeTitle, useCalendarState, LeftNav, CreateChooser, SectionPage } from "./components.jss";
 
 function App() {
   const [view, setView] = useState("week");
@@ -23,7 +23,6 @@ function App() {
   const [createContext, setCreateContext] = useState(null);
 
   const handleCreate = ({ start, end, allDay }) => {
-    // Ask user what they want to create: Event or Task
     setCreateContext({ start, end, allDay: !!allDay });
     setCreateChooserOpen(true);
   };
@@ -111,17 +110,34 @@ function App() {
             setShowTasks={setShowTasks}
           />
           <main className="flex-1">
-            <CalendarView
-              view={view}
-              date={date}
-              events={events}
-              calendars={calendars}
-              onCreate={handleCreate}
-              onEdit={handleEdit}
-              tasks={tasks}
-              showTasks={showTasks}
-              onEditTask={handleEditTask}
-            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <CalendarView
+                    view={view}
+                    date={date}
+                    events={events}
+                    calendars={calendars}
+                    onCreate={handleCreate}
+                    onEdit={handleEdit}
+                    tasks={tasks}
+                    showTasks={showTasks}
+                    onEditTask={handleEditTask}
+                  />
+                }
+              />
+              <Route path="/active-quests" element={<SectionPage title="ActiveQuests" />} />
+              <Route path="/completed-quests" element={<SectionPage title="CompletedQuests" />} />
+              <Route path="/reward-store" element={<SectionPage title="RewardStore" />} />
+              <Route path="/redeem-rewards" element={<SectionPage title="RedeemRewards" />} />
+              <Route path="/reward-log" element={<SectionPage title="RewardLog" />} />
+              <Route path="/recurringtasks" element={<SectionPage title="Recurringtasks" />} />
+              <Route path="/inventory" element={<SectionPage title="Inventory" />} />
+              <Route path="/rules" element={<SectionPage title="Rules" />} />
+              <Route path="/trash-archive" element={<SectionPage title="Trash/Archive" />} />
+              <Route path="/settings" element={<SectionPage title="Settings" />} />
+            </Routes>
           </main>
         </div>
 
