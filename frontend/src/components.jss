@@ -431,6 +431,8 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
       <button onClick={onToggle} aria-label="Toggle LeftNav" className="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full border bg-white text-gray-600 hover:bg-gray-50 grid place-items-center shadow">
         <span className="transform">{collapsed ? "›" : "‹"}</span>
       </button>
+              {collapsed ? item.label.charAt(0) : item.label}
+
 
         {items.map((item) => {
           const active = location.pathname === item.path;
