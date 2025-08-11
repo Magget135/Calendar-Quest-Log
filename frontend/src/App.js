@@ -99,7 +99,7 @@ function App() {
       <div className="min-h-screen bg-white text-black">
         <TopBar title={title} onPrev={onPrev} onNext={onNext} onToday={onToday} view={view} setView={setView} />
         <div className="flex">
-          <LeftNav />
+          <LeftNav collapsed={leftNavCollapsed} onToggle={() => setLeftNavCollapsed(v => !v)} />
           <LeftSidebar
             date={date}
             onDateChange={setDate}
