@@ -453,7 +453,9 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
   const [presetsOpen, setPresetsOpen] = useState(false);
   return (
     <aside className={`relative shrink-0 border-r border-gray-200 bg-white hidden lg:block transition-all duration-200 ${collapsed ? "w-[40px]" : "w-[300px]"}`}>
-      <div className="p-4">
+      {!collapsed && (
+        <div className="p-4">
+
       {/* Collapse toggle button */}
       <button onClick={onToggle} aria-label="Toggle LeftSidebar" className="absolute -right-3 top-4 z-10 w-6 h-6 rounded-full border bg-white text-gray-600 hover:bg-gray-50 grid place-items-center shadow">
         <span className="transform">{collapsed ? "›" : "‹"}</span>
