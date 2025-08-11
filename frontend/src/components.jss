@@ -467,51 +467,53 @@ export const LeftSidebar = ({ date, onDateChange, onCreate, calendars, setCalend
           <span className="font-medium">Create</span>
         </button>
       </div>
-
-      {!collapsed && (
-        <div className="px-3 pb-4">
-        <MiniMonth date={date} onDateChange={onDateChange} />
-      </div>
       )}
 
       {!collapsed && (
         <div className="px-3 pb-4">
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">My calendars</div>
-          <button className="text-xs underline text-gray-600 hover:text-black" onClick={() => setPresetsOpen(true)}>Manage presets</button>
+          <MiniMonth date={date} onDateChange={onDateChange} />
         </div>
-        <div className="space-y-2">
-          {calendars.map((c) => (
-            <div key={c.id} className="flex items-center justify-between gap-2 text-sm text-gray-800 select-none">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={c.checked} onChange={(e) => setCalendars((prev) => prev.map(p => p.id === c.id ? { ...p, checked: e.target.checked } : p))} />
-                <span className="inline-block w-3 h-3 rounded" style={{ background: c.color }} />
-                <span>{c.name}</span>
-              </label>
-              <PresetQuickApply calendars={calendars} onApply={(presetColor) => setCalendars(prev => prev.map(p => p.id === c.id ? { ...p, color: presetColor } : p))} />
-            </div>
-          ))}
+      )}
+
+      {!collapsed && (
+        <div className="px-3 pb-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">My calendars</div>
+            <button className="text-xs underline text-gray-600 hover:text-black" onClick={() => setPresetsOpen(true)}>Manage presets</button>
+          </div>
+          <div className="space-y-2">
+            {calendars.map((c) => (
+              <div key={c.id} className="flex items-center justify-between gap-2 text-sm text-gray-800 select-none">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" checked={c.checked} onChange={(e) => setCalendars((prev) => prev.map(p => p.id === c.id ? { ...p, checked: e.target.checked } : p))} />
+                  <span className="inline-block w-3 h-3 rounded" style={{ background: c.color }} />
+                  <span>{c.name}</span>
+                </label>
+                <PresetQuickApply calendars={calendars} onApply={(presetColor) => setCalendars(prev => prev.map(p => p.id === c.id ? { ...p, color: presetColor } : p))} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {!collapsed && (
         <div className="px-3 pb-6 border-t border-gray-100 pt-4 relative">
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Tasks</div>
-          <button className="text-xs text-gray-600 hover:text-black" onClick={() => setLegendOpen((v) => !v)}>Legend</button>
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Tasks</div>
+            <button className="text-xs text-gray-600 hover:text-black" onClick={() => setLegendOpen((v) => !v)}>Legend</button>
+          </div>
+          {legendOpen && <TaskLegend />}
+          <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none mt-2">
+            <input type="checkbox" checked={showTasks} onChange={(e) => setShowTasks(e.target.checked)} />
+            <span className="inline-flex items-center gap-1">
+              <span className="inline-block w-3 h-3 rounded bg-gray-400" />
+              Show tasks on calendar
+            </span>
+          </label>
         </div>
-        {legendOpen && <TaskLegend />}
-        <label className="flex items-center gap-2 text-sm text-gray-800 cursor-pointer select-none mt-2">
-          <input type="checkbox" checked={showTasks} onChange={(e) => setShowTasks(e.target.checked)} />
-          <span className="inline-flex items-center gap-1">
-            <span className="inline-block w-3 h-3 rounded bg-gray-400" />
-            Show tasks on calendar
-          </span>
-        </label>
-      </div>
+      )}
 
       {presetsOpen && <PresetsModal onClose={() => setPresetsOpen(false)} onApplyToCalendar={(calendarId, color) => setCalendars(prev => prev.map(p => p.id === calendarId ? { ...p, color } : p))} calendars={calendars} />}
-      )}
 
     </aside>
   );
