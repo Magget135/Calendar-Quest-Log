@@ -9,6 +9,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 /********************** Utils **********************/
 const pad = (n) => (n < 10 ? `0${n}` : `${n}`);
