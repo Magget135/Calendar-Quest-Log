@@ -424,6 +424,21 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
     { label: "Trash/Archive", path: "/trash-archive" },
     { label: "Settings", path: "/settings" },
   ];
+  const calendarItem = { label: "Calendar", path: "/", icon: "calendar" };
+  const config = [
+    calendarItem,
+    { label: "ActiveQuests", path: "/active-quests", icon: "bolt" },
+    { label: "CompletedQuests", path: "/completed-quests", icon: "checklist" },
+    { label: "RewardStore", path: "/reward-store", icon: "cart" },
+    { label: "RedeemRewards", path: "/redeem-rewards", icon: "gift" },
+    { label: "RewardLog", path: "/reward-log", icon: "list" },
+    { label: "Recurringtasks", path: "/recurringtasks", icon: "repeat" },
+    { label: "Inventory", path: "/inventory", icon: "box" },
+    { label: "Rules", path: "/rules", icon: "book" },
+    { label: "Trash/Archive", path: "/trash-archive", icon: "trash" },
+    { label: "Settings", path: "/settings", icon: "gear" },
+  ];
+
   const location = useLocation();
   return (
     <aside className={`relative shrink-0 border-r border-gray-200 bg-white hidden md:block transition-all duration-200 ${collapsed ? "w-[40px]" : "w-[200px]"}`}
