@@ -19,6 +19,9 @@ function App() {
   const [taskModalOpen, setTaskModalOpen] = useState(false);
   const [taskModalInitial, setTaskModalInitial] = useState(null);
 
+  const [leftNavCollapsed, setLeftNavCollapsed] = useState(false);
+  const [leftSidebarCollapsed, setLeftSidebarCollapsed] = useState(false);
+
   const [createChooserOpen, setCreateChooserOpen] = useState(false);
   const [createContext, setCreateContext] = useState(null);
 
