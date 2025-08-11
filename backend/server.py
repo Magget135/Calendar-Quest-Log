@@ -36,6 +36,17 @@ class StatusCheckCreate(BaseModel):
     client_name: str
 
 # Add your routes to the router instead of directly to app
+class ColorPreset(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    color: str  # HEX like #111827
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class ColorPresetCreate(BaseModel):
+    name: str
+    color: str
+
+
 @api_router.get("/")
 async def root():
     return {"message": "Hello World"}
