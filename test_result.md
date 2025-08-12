@@ -150,6 +150,9 @@
 ##         -working: true
 ##         -agent: "main"
 ##         -comment: "UI updates: 1) Move Calendar button into LeftNav as the first item (above ActiveQuests). 2) Collapsed LeftNav now shows icons for each section instead of first letters. 3) Remove plus icon from Create buttons (expanded sidebar keeps text-only Create; collapsed sidebar no longer shows a separate create icon). Please re-test alignment, visibility, and navigation."
+##         -working: true
+##         -agent: "testing"
+##         -comment: "COMPREHENSIVE LEFTNAV AND LEFTSIDEBAR TESTING COMPLETED: ✅ LEFTNAV CONTENT: Calendar is correctly positioned as first item at top, navigates to '/', shows proper calendar icon. All 11 items have appropriate icons (calendar, bolt, checklist, cart, gift, list, repeat, box, book, trash, gear) with title tooltips. ✅ COLLAPSE/EXPAND BEHAVIOR: Circular chevron toggle works perfectly - collapses from 200px to 40px width smoothly, shows icon-only when collapsed, label+icon when expanded. Z-index keeps arrow visible above content. ✅ LEFTSIDEBAR CREATE BUTTON: Text-only 'Create' button when expanded (no plus icon), properly hidden when collapsed with NO minimal create icon present. ✅ NAVIGATION: Calendar link in SectionPage works correctly, LeftNav Calendar item navigates to '/' from /active-quests successfully. ✅ REGRESSION CHECKS: View toggles (Day/Week/Month) working, Create chooser modal opens with Event/Task options. ✅ TOPBAR: No separate Calendar button present (correctly removed). ✅ ACCESSIBILITY: Hover tooltips work on collapsed LeftNav icons. Fixed critical syntax error in LeftNav component. All requirements met successfully."
 ## metadata:
 ##   created_by: "main_agent"
 ##   version: "1.0"
