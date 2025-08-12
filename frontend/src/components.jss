@@ -455,6 +455,7 @@ export const LeftNav = ({ collapsed = false, onToggle }) => {
             ) : null
           );
 
+  return (
     <aside className={`relative shrink-0 border-r border-gray-200 bg-white hidden md:block transition-all duration-200 ${collapsed ? "w-[40px]" : "w-[200px]"}`}
          aria-expanded={!collapsed}
     >
