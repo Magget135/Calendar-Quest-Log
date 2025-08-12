@@ -159,7 +159,7 @@
 ##   test_sequence: 5
 ##   run_ui: true
 ## test_plan:
-##   current_focus: ["Frontend: Left panel collapse UX, TopBar Calendar button visibility and navigation"]
+##   current_focus: []
 ##   stuck_tasks: []
 ##   test_all: false
 ##   test_priority: "high_first"
